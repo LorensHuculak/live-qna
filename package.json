@@ -13,7 +13,9 @@
     "body-parser": "^1.17.2",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
+    "mongodb": "^2.2.31",
     "mongojs": "^2.4.1",
+    "mongoose": "^4.11.8",
     "primus": "^7.1.0",
     "socket.io": "^2.0.3"
   }

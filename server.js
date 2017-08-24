@@ -1,13 +1,17 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var bodyParser = require ('body-parser');
-
+var Primus = require('primus');
 var index = require('./routes/index');
 var discussions = require('./routes/discussion');
+
 var port = 4200;
 
 var app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

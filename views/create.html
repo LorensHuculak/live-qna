@@ -79,7 +79,7 @@
                 
 
                 <li class="nav-item g-mx-20--lg">
-                  <a href="#" class="nav-link g-px-0">Login</a>
+                  <a id="moderator" href="#" class="nav-link g-px-0">Dirk</a>
                 </li>
 
                 <li class="nav-item g-ml-20--lg g-mr-0--lg">
@@ -109,12 +109,12 @@
 
 </div>
 
-    
-    <form method="post" class="g-mb-30">
+    <div id="status"></div>
+    <form class="g-mb-30">
 
   <!-- Text Input -->
   <div class="form-group g-mb-20">
-    <input name="username" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
+    <input name="username" id="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
 
   </div>
   <!-- End Text Input -->
@@ -123,7 +123,7 @@
 
 
   
-<button type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add Discussion</button>
+<button id="addBtn" type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add Discussion</button>
 
 
 
@@ -185,6 +185,52 @@
 
     <!-- JS Custom -->
     <script src="assets/js/custom.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    
+       <script>
+   
+              
+    (function() {
+          var element = function(id){
+              return document.getElementById(id);
+          }
+          
+          //get elements
+          var mod = element('moderator');
+            var discname = element('discname');
+          var status = element('status');
+            var addBtn = element('addBtn');
+          
+          //set default status
+          var statusDefault = status.textContent;
+          var setStatus = function(s){
+              // Set Status
+              status.textContent = s;
+              
+              if(s !== statusDefault) {
+                 var delay = setTimeout(function(){
+                     setStatus(statusDefault);
+                 }, 4000);
+                 }
+              
+          }
+          
+          // Conect to socket.io
+          var socket = io.connect('http://127.0.0.1:3005');
+        
+          //check for connection
+          if(socket !== undefined) {
+             console.log('Connected to socket...');
+              
+           socket.on('output', function(data){
+              console.log(data); 
+           });
+             }
+      
+      })();
+        
+      </script>
+
 
     <!-- JS Plugins Init. -->
     <script>
@@ -214,6 +260,8 @@
         // initialization of header
         $.HSCore.components.HSHeader.init($('#js-header'));
         $.HSCore.helpers.HSHamburgers.init('.hamburger');
+      });
+          
       });
     </script>
   </body>

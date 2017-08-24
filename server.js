@@ -6,20 +6,72 @@ var bodyParser = require ('body-parser');
 
 var Primus = require('primus');
 
-const mongo = require('mongodb').MongoClient;
-const client = require('socket.io').listen(3000).sockets;
+var mongo = require('mongodb').MongoClient;
+var client = require('socket.io').listen(3005).sockets;
 
-// Connect to mongo
-mongodb.connect('mongodb://127.0.0.1/qanda', function(err, db) {
+// Connect to MongoDB
+mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
    if(err){
       throw err;
    }
-   console.log('MongoDB connected...')
+   console.log('MongoDB connected...');
+
+    // Connect Socket.io
+    client.on('connection', function (socket) {
+         var disc = db.collection('discs');
+
+         // Create function to send status
+       var sendStatus = function(s){
+           socket.emit('status', s);
+        }
+
+        // Get discs from mongo collection
+        disc.find().limit(100).sort({_id:1}).toArray(function(err, res){
+           if(err) {
+              throw err;
+           }
+           // emit discs
+            socket.emit('output', res);
+        });
+        //handle input events
+        socket.on('input', function(data){
+           var mod = data.mod;
+           var name = data.name;
+
+           //check for mod and name
+            if(mod == '' || message == '') {
+               sendStatus('Please enter a name and message');
+            } else {
+               disc.insert({mod: mod, name: name}, function (){
+                  client.emit('output', [data]);
+
+                  // Send status object
+                   sendStatus({
+                       message: 'Message Sent',
+                       clear: true
+                   });
+               });
+            }
+        });
+
+        //handle clear
+        socket.on('clear', function(){
+           //remove all discs from collection
+            disc.remove({}, function(){
+               //emit cleared
+                socket.emit('cleared');
+            });
+        });
+    });
 });
+
+
 
 var index = require('./routes/index');
 var discussions = require('./routes/discussion');
-var create = require('./routes/user');
+
+
+var users = require('./routes/user');
 
 
 

@@ -39,19 +39,13 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
            var name = data.name;
 
            //check for mod and name
-            if(mod == '' || message == '') {
-               sendStatus('Please enter a name and message');
-            } else {
+
                disc.insert({mod: mod, name: name}, function (){
                   client.emit('output', [data]);
 
-                  // Send status object
-                   sendStatus({
-                       message: 'Message Sent',
-                       clear: true
-                   });
+
                });
-            }
+
         });
 
         //handle clear

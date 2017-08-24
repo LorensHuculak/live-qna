@@ -109,12 +109,12 @@
 
 </div>
 
-    <div id="status"></div>
+    <div id="status" class="g-color-primary g-mb-20"></div>
     <form class="g-mb-30">
 
   <!-- Text Input -->
   <div class="form-group g-mb-20">
-    <input name="username" id="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
+    <input name="discname" id="discname" value="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
 
   </div>
   <!-- End Text Input -->
@@ -130,8 +130,7 @@
     
 </form>
 
-
-                      
+           
              </div>
 
 
@@ -198,12 +197,15 @@
           //get elements
           var mod = element('moderator');
             var discname = element('discname');
+         var disclist = element('disclist');
           var status = element('status');
             var addBtn = element('addBtn');
+
           
-          //set default status
-          var statusDefault = status.textContent;
-          var setStatus = function(s){
+       //set default status
+          statusDefault = status.textContent;
+          setStatus = function(s){
+         
               // Set Status
               status.textContent = s;
               
@@ -213,18 +215,45 @@
                  }, 4000);
                  }
               
-          }
+          } 
           
-          // Conect to socket.io
+          // Connect to socket.io
           var socket = io.connect('http://127.0.0.1:3005');
         
           //check for connection
           if(socket !== undefined) {
              console.log('Connected to socket...');
+             
               
-           socket.on('output', function(data){
-              console.log(data); 
-           });
+          /*    // GET Status from server
+              socket.on('status', function(data){
+                  //get disc status
+                  setStatus((typeof data === 'object')? data.message : data);
+                  
+                  // if status is clear, clear text
+                  if(data.clear) {
+                     textarea.value = '';
+                     }
+                  
+              }); */
+              
+              // Handle Input
+              addBtn.addEventListener('click', function() {
+                
+            //emit server input
+                      socket.emit('input', {
+                         mod: mod.innerHTML,
+                         name: discname.value
+                      });
+                  
+                  setStatus("Discussion succesfully started!");
+                      
+                      event.preventDefault();
+                      
+                      
+                  
+              });
+              
              }
       
       })();

@@ -77,9 +77,11 @@
 
                 
                 
-                <a href="/discussion" class="btn btn-sm u-btn-outline-white g-font-weight-600  g-brd-2 rounded-0 nav-item g-mx-20--sm g-pt-8 g-pr-10 small">
- <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion
-</a>
+                
+                
+                <li id="newdisc"class="nav-item g-mx-20--lg">
+                  <a id="moderator" href="/discussion" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
+                </li>
 
                 <li class="nav-item g-mx-20--lg">
                   <a id="moderator" href="user/login" class="nav-link g-px-0">Dirk</a>
@@ -127,41 +129,7 @@
 
                 <div class="container main">
 <ul class="list-unstyled g-mt-50" id="disclist">
-   <li class="g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15">
-    <div class="media h5">
-      <div class="d-flex g-mt-2 g-mr-15">
-        <i class="fa fa-comments g-color-teal"></i>
-      </div>
-      <a href="">
-      <div class="media-body">
-        <p class="m-0"><strong class="g-color-gray-dark-v4">Discussion Name</strong></p>
-       
-      </div></a>
-    </div>
-  </li>  <li class="g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15">
-    <div class="media h5">
-      <div class="d-flex g-mt-2 g-mr-15">
-        <i class="fa fa-comments g-color-teal"></i>
-      </div>
-      <a href="">
-      <div class="media-body">
-        <p class="m-0"><strong class="g-color-gray-dark-v4">Discussion Name</strong></p>
-       
-      </div></a>
-    </div>
-  </li>
-  <li class="g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15">
-    <div class="media h5">
-      <div class="d-flex g-mt-2 g-mr-15">
-        <i class="fa fa-comments g-color-teal"></i>
-      </div>
-      <a href="">
-      <div class="media-body">
-        <p class="m-0"><strong class="g-color-gray-dark-v4">Discussion Name</strong></p>
-       
-      </div></a>
-    </div>
-  </li>
+
   
 </ul>
                 </div>
@@ -218,16 +186,125 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     
        <script>
-      
-      (function(){
+   
+              
+    (function() {
           var element = function(id){
               return document.getElementById(id);
           }
           
           //get elements
-          var disclist = element('disclist');
+          var mod = element('moderator');
+            var discname = element('discname');
+         var disclist = element('disclist');
+          var status = element('status');
+            var addBtn = element('addBtn');
+
+          
+      /*    //set default status
+          var statusDefault = status.textContent;
+          var setStatus = function(s){
+              // Set Status
+              status.textContent = s;
+              
+              if(s !== statusDefault) {
+                 var delay = setTimeout(function(){
+                     setStatus(statusDefault);
+                 }, 4000);
+                 }
+              
+          } */
+          
+          // Connect to socket.io
+          var socket = io.connect('http://127.0.0.1:3005');
+        
+          //check for connection
+          if(socket !== undefined) {
+             console.log('Connected to socket...');
+              
+              
+              //OUTPUT Handler          
+           socket.on('output', function(data){
+          // console.log(data); 
+          if(data.length){
+                   for(var x = 0;x < data.length;x++){
+                       //build out message div
+                       var discussion = document.createElement('li');
+             
+                       var mediah5 = document.createElement('div');
+                       var flexdiv = document.createElement('div');
+                       var discicon = document.createElement('i');
+                       var disclink = document.createElement('a');
+                       var mediabody = document.createElement('div');
+                       var discnamep = document.createElement('p');
+                       
+                       
+                       discussion.setAttribute('class','g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15');
+                       
+                       mediah5.setAttribute('class','media h5');
+                       
+                       flexdiv.setAttribute('class','d-flex g-mt-2 g-mr-15');
+                       
+                       discicon.setAttribute('class','fa fa-comments g-color-teal');
+                       
+                        mediabody.setAttribute('class','media-body');
+                       
+                       discnamep.setAttribute('class','g-color-gray-dark-v4 g-font-weight-700 g-mb-0');
+                       
+                       disclink.setAttribute('href', '#');
+                       
+                       
+                       
+                       
+                       
+                       discnamep.textContent = data[x].name;
+                       
+                       mediabody.appendChild(discnamep);
+                       
+                       disclink.appendChild(mediabody);          
+                       
+                       flexdiv.appendChild(discicon);
+                               mediah5.appendChild(flexdiv);
+                       
+                       mediah5.appendChild(disclink);
+                       
+               
+                       
+                       discussion.appendChild(mediah5);
+                       
+                       disclist.appendChild(discussion);
+                       
+                       disclist.insertBefore(discussion, disclist.firstchild);
+                   }
+               } 
+           });
+              
+          /*    // GET Status from server
+              socket.on('status', function(data){
+                  //get disc status
+                  setStatus((typeof data === 'object')? data.message : data);
+                  
+                  // if status is clear, clear text
+                  if(data.clear) {
+                     textarea.value = '';
+                     }
+                  
+              }); */
+              
+              // Handle Delete
+              delBtn.addEventListener('click', function(){
+                 socket.emit('clear'); 
+              });
+              
+              //clearDisc
+              socket.on('cleared', function(){
+                  disclist.textContent ='';
+              });
+              
+       
+             }
+      
       })();
-           
         
       </script>
 
@@ -261,6 +338,7 @@
         // initialization of header
         $.HSCore.components.HSHeader.init($('#js-header'));
         $.HSCore.helpers.HSHamburgers.init('.hamburger');
+      });
       });
     </script>
   </body>

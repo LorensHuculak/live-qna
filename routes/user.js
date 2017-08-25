@@ -4,12 +4,12 @@ var router = express.Router();
 
 router.get('/login', function (req, res, next) {
 
-    res.render('login.html');
+    res.render('login');
 
 });
 
 router.get('/register', function (req, res, next) {
-    res.render('register.html');
+    res.render('register');
     
 });
 

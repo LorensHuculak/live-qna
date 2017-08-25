@@ -54,10 +54,7 @@ router.delete('/:id', function(req,res){
     })
 })
 
-router.get('/id', function (req, res, next) {
-    res.render('discussion.html');
 
-});
 
 
 

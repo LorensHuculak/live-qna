@@ -37,6 +37,7 @@
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="/assets/css/custom.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
   </head>
 
   <body>
@@ -77,7 +78,7 @@
 
                 
                        
-                <a href="/discussions/create" class="btn btn-sm u-btn-outline-white g-font-weight-600  g-brd-2 rounded-0 nav-item g-mx-20--sm g-pt-8 g-pr-10 small">
+                <a href="/create" class="btn btn-sm u-btn-outline-white g-font-weight-600  g-brd-2 rounded-0 nav-item g-mx-20--sm g-pt-8 g-pr-10 small">
  <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion
 </a>
 
@@ -108,10 +109,12 @@
       
                   <div class="container g-pt-50">
 <div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
-  <h2 class="text-uppercase u-heading-v2__title g-mb-10"> {{ name }} <i class="fa fa-unlock g-ml-20"></i><i class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10"></i><span class="g-color-gray-light-v1">4</span></h2>
+  <h2 id="discname" class="text-uppercase u-heading-v2__title g-mb-10">{{name}}<i class="fa fa-unlock g-ml-20"></i></h2>
 
-
+<i id="counter" class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10 h5"> </i>
 </div>
+
+
 
 
                 <div class="Question1">
@@ -122,11 +125,11 @@
 
 
     <div class="col-sm-9">
-      <input id="hf-email" class="form-control u-form-control rounded-0" type="text" placeholder="Ask a Question...">
+      <input id="question" class="form-control u-form-control rounded-0" type="text" placeholder="Ask a Question...">
      
     </div>
     
-    <a href="#" class="btn u-btn-primary g-mr-10  g-mt-1 g-mb-15 g-width-150 g-height-35 rounded-0">
+    <a href="#" id="addQ" class="btn u-btn-primary g-mr-10  g-mt-1 g-mb-15 g-width-150 g-height-35 rounded-0">
   <i class="fa fa-paper-plane"></i>
 </a>
   </div>
@@ -134,17 +137,18 @@
 
 </form>
 <!-- End General Forms -->
-         
-                <!-- begin questionblock -->
-                <ul class="questionlist">
-                <li class="qblock g-brd-around g-brd-gray-light-v4">
+      
+                 <ul id="questionlist">
+                 
+                <!-- begin questionblock 
+                <li id="qblock" class="qblock g-brd-around g-brd-gray-light-v4">
                    
                     
                       <h3 class="g-pt-20 g-pl-20">This is my First Question?</h3>
 
    <hr class="g-brd-gray-light-v4 g-mx-minus-30">
                    
-                   <ul class="answerslist g-mb-30">
+                   <ul id="answerlist" class="answerslist g-mb-30">
                        
                        <li><p><span class="userspan g-font-weight-600 g-mr-5 g-color-cyan">Lorens: </span> Hey Man</p></li>
                           <li><p>Hey Man</p></li>
@@ -152,7 +156,7 @@
                    </ul>
                    
                    <form class="">
-  <!-- Text Input -->
+
   <div class="form-group row">
 
 
@@ -165,15 +169,15 @@
   <i class="fa fa-paper-plane"></i>
 </a>
   </div>
-  <!-- End Text Input -->
+
 
 </form>
                     
                 </li>
-              
+                <!-- end question block -->
                      
-                      </ul> 
-                      <!-- end question block -->
+                      </ul>
+                    
                       
                       
                   </div>
@@ -231,9 +235,169 @@
 
     <!-- JS Custom -->
     <script src="/assets/js/custom.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    
+        <script>
+   
+              
+    (function() {
+          var element = function(id){
+              return document.getElementById(id);
+          }
+          
+          //get elements
+      
+            var question = element('question');
+         var qlist = element('questionlist');
+            var addQ = element('addQ');
+        var discname = element('discname');
+        var addA = element('addA');
+        var answer = element('answer');
+        var addanswer = element('addanswer');
+        var qname = element('qname');
+        var answerlist = element('answerlist');
+
+        
+          
+          // Connect to socket.io
+          var socket = io.connect('http://127.0.0.1:3005');
+        
+          //check for connection
+          if(socket !== undefined) {
+             console.log('Connected to socket...');
+             
+              
+          /*    // GET Status from server
+              socket.on('status', function(data){
+                  //get disc status
+                  setStatus((typeof data === 'object')? data.message : data);
+                  
+                  // if status is clear, clear text
+                  if(data.clear) {
+                     textarea.value = '';
+                     }
+                  
+              }); */
+              
+                     // Handle Input Question
+              addQ.addEventListener('click', function() {
+                
+            //emit server input
+                      socket.emit('inputq', {
+                         question: question.value,
+                          discname: discname.textContent
+                        
+                         
+                      });
+                  
+              
+                      
+                      event.preventDefault();
+                      
+                      
+                  
+              });
+              
+             
+              
+             }
+        
+                  //OUTPUT Handler          
+           socket.on('outputq', function(data){
+          // console.log(data); 
+          if(data.length){
+                   for(var x = 0;x < data.length;x++){
+                       //build out message div
+                       var qblock = document.createElement('li');
+                       var qname = document.createElement('h3');
+                       var hr = document.createElement('hr');
+                       var reslist = document.createElement('ul');
+                       var qform = document.createElement('form');
+                       var formdiv = document.createElement('div');
+                       var coldiv = document.createElement('div');
+                       var resinput = document.createElement('input');
+                       var reslink = document.createElement('a');
+                       var resico = document.createElement('i');
+             
+                        qblock.setAttribute('class','qblock g-brd-around g-brd-gray-light-v4');
+                        qname.setAttribute('class','g-pt-20 g-pl-20');
+                       qname.setAttribute('id', 'qname');
+                        hr.setAttribute('class','g-brd-gray-light-v4 g-mx-minus-30');
+                       reslist.setAttribute('class','answerslist g-mb-30');
+                       reslist.setAttribute('id', 'answerlist');
+                        formdiv.setAttribute('class','form-group row');
+                        coldiv.setAttribute('class','col-sm-9');
+                       resinput.setAttribute('class','form-control u-form-control rounded-0 g-mb-0');
+                       resinput.setAttribute('placeholder','Answer this Question...');
+                         resinput.setAttribute('id','answer');
+                       reslink.setAttribute('class','btn u-btn-primary g-mr-10  g-mt-1 g-mb-0 g-width-150 g-height-35 rounded-0 g-bg-gray-dark-v4');
+                        reslink.setAttribute('href','#');
+                       reslink.setAttribute('id', 'addanswer');
+                       resico.setAttribute('class','fa fa-paper-plane g-color-white');
+                   
+                       
+                
+                       
+                   
+                                            
+                       
+                       if(data[x].discname === '{{ name }}') {
+                       qname.textContent = data[x].question;
+                       
+                          
+                       qform.appendChild(formdiv);
+                       formdiv.appendChild(coldiv);
+                       coldiv.appendChild(resinput);
+                       formdiv.appendChild(reslink); 
+                       reslink.appendChild(resico);
+                
+                     
+                       
+                       qblock.appendChild(qname);
+                       qblock.appendChild(hr);
+                       qblock.appendChild(reslist);
+                       reslist.textContent = "{{{ content }}}";
+                       qblock.appendChild(qform);
+                       questionlist.appendChild(qblock);
+                       
+                         
+                       
+                                    
+                      
+                       }
+               
+           
+                    
+                   }
+               
+               
+                      
+                      
+                  
+      
+              
+               } 
+           });
+        
+        
+        
+       
+              
+      
+      })();
+            
+            
+        
+      </script>
+
 
     <!-- JS Plugins Init. -->
     <script>
+        
+     
+
+          
+        
       $(document).on('ready', function () {
         // initialization of carousel
         $.HSCore.components.HSCarousel.init('.js-carousel');

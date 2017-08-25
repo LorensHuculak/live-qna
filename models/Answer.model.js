@@ -3,17 +3,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var DiscSchema = new Schema({
-    name: {
+var AnswerSchema = new Schema({
+    answer: {
         type: String,
         required: true,
         unique: true
     },
-    mod: String,
-    location: String,
+    discname: String,
     question: String,
-    answer: String
+    user: String
 
 });
 
-module.exports = mongoose.model('Discussion', DiscSchema);
+module.exports = mongoose.model('Answer', AnswerSchema);

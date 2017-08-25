@@ -110,7 +110,7 @@
   <!-- End Parallax Image -->
 
   <div class="container text-center g-color-white g-py-200--md g-py-80">
-    <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span class="g-color-primary g-ml-10 g-font-weight-700 h1 city">Leuven</span></h2>
+    <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span id="locationspan" class="g-color-primary g-ml-10 g-font-weight-700 h1 city"></span></h2>
 
 
 
@@ -118,6 +118,46 @@
   
   
 </section>
+        <script>
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getLocation);
+  } else {
+    alert("Je browser ondersteunt geen geolocatie.");
+  }
+  function getLocation(position) {
+    return Location(position.coords.latitude, position.coords.longitude);
+  }
+
+  var Location = function (lat, lon) {
+    this.latitude  = lat;
+    this.longitude = lon;
+    check();
+  };
+
+  function check() {
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.latitude + "," + this.longitude + "&sensor=true";
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "json", 
+      success: function(response) {
+        LocationName(response);
+      },
+      error: function() {
+        console.log("Error");
+      }});
+    };
+
+	LocationName = function(arg){
+      var locationName = arg.results[0].address_components[2].short_name;
+      $("#locationspan").html(locationName);
+        console.log(locationName);
+   
+	};
+
+  
+</script>
 <!-- Location Info -->
          
  
@@ -184,11 +224,12 @@
     <!-- JS Custom -->
     <script src="/assets/js/custom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
     
        <script>
    
               
-    (function() {
+  setTimeout(function(){   (function() {
           var element = function(id){
               return document.getElementById(id);
           }
@@ -199,6 +240,7 @@
          var disclist = element('disclist');
           var status = element('status');
             var addBtn = element('addBtn');
+        var location = element('locationspan');
 
           
       /*    //set default status
@@ -224,7 +266,9 @@
               
               
               //OUTPUT Handler          
-           socket.on('output', function(data){
+     
+    //do what you need here
+     socket.on('output', function(data){
           // console.log(data); 
           if(data.length){
                    for(var x = 0;x < data.length;x++){
@@ -253,9 +297,10 @@
                        
                        disclink.setAttribute('href', '/discussion/'+ data[x]._id +'');
                        
-                       
-                       
-                       
+                      
+                  var locfilter = location.innerHTML;
+                     
+                        if(data[x].location == locfilter) {
                        
                        discnamep.textContent = data[x].name;
                        
@@ -275,9 +320,11 @@
                        disclist.appendChild(discussion);
                        
                        disclist.insertBefore(discussion, disclist.firstchild);
+                           }
                    }
                } 
            });
+          
               
           /*    // GET Status from server
               socket.on('status', function(data){
@@ -291,20 +338,14 @@
                   
               }); */
               
-              // Handle Delete
-              delBtn.addEventListener('click', function(){
-                 socket.emit('clear'); 
-              });
               
-              //clearDisc
-              socket.on('cleared', function(){
-                  disclist.textContent ='';
-              });
               
        
              }
       
       })();
+                        
+                        }, 200);
         
       </script>
 
@@ -341,5 +382,6 @@
       });
       });
     </script>
+
   </body>
 </html>

@@ -115,10 +115,12 @@
 
   <!-- Text Input -->
   <div class="form-group g-mb-20">
-    <input name="discname" id="discname" value="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
+    <input name="discname" id="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
 
   </div>
   <!-- End Text Input -->
+  
+  <p class="g-color-gray-dark-v4">Area: <span class="g-color-teal g-font-weight-600" id="locationspan"></span></p>
   
   
 
@@ -201,6 +203,7 @@
          var disclist = element('disclist');
           var status = element('status');
             var addBtn = element('addBtn');
+        var location = element('locationspan');
 
           
        //set default status
@@ -244,7 +247,8 @@
             //emit server input
                       socket.emit('input', {
                          mod: mod.innerHTML,
-                         name: discname.value
+                         name: discname.value,
+                         location: location.textContent
                       });
                   
                   setStatus("Discussion succesfully started!");
@@ -294,5 +298,44 @@
           
       });
     </script>
-  </body>
+        <script>
+$(document).ready(function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getLocation);
+  } else {
+    alert("Je browser ondersteunt geen geolocatie.");
+  }
+  function getLocation(position) {
+    return Location(position.coords.latitude, position.coords.longitude);
+  }
+
+  var Location = function (lat, lon) {
+    this.latitude  = lat;
+    this.longitude = lon;
+    check();
+  };
+
+  function check() {
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.latitude + "," + this.longitude + "&sensor=true";
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "json", 
+      success: function(response) {
+        LocationName(response);
+      },
+      error: function() {
+        console.log("Error");
+      }});
+    };
+
+	LocationName = function(arg){
+      var locationName = arg.results[0].address_components[2].short_name;
+      $("#locationspan").html(locationName);
+        console.log(locationName);
+   
+	};
+});
+  
+</script>  </body>
 </html>

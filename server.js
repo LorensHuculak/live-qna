@@ -105,7 +105,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs', hbs({extname: 'hbs', defaultLayout:'layout', layoutsDir: __dirname + '/views/layouts'}));
+app.engine('hbs', hbs({extname: 'hbs'}));
 
 // Set Static Folder (ANGULAR)
 app.use(express.static(path.join(__dirname, 'client')));

@@ -23,7 +23,7 @@ router.get('/:id', function(req, res){
     Discussion.findOne({
         _id: req.params.id
     }).exec(function(err, discussion){
-        res.render('discussion.html', {"mod": res.mod, "name": res.name});
+        res.render('discussion', {"name": discussion.name});
 
     });
 });

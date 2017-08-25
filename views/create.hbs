@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+  <head>
     <title>Qanda</title>
 
     <!-- Required Meta Tags Always Come First -->
@@ -38,6 +38,7 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="/assets/css/custom.css">
   </head>
+
 
   <body>
     <!-- Header -->
@@ -77,11 +78,6 @@
 
                 
                 
-                
-                
-                <li id="newdisc"class="nav-item g-mx-20--lg">
-                  <a id="moderator" href="/create" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
-                </li>
 
                 <li class="nav-item g-mx-20--lg">
                   <a id="moderator" class="nav-link g-px-0">Dirk</a>
@@ -99,40 +95,46 @@
     </header>
     <!-- End Header -->
 
-    <main >
+    <main>
   
           
           
-<!-- Location Info -->
-<section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
-  <!-- Parallax Image -->
-  <div class="divimage dzsparallaxer--target w-100 u-bg-overlay g-bg-black-opacity-0_4--after" style="height: 110%; background-image: url('assets/img/logo/qandabg.jpg'); transform: translate3d(0px, -246px, 0px);"></div>
-  <!-- End Parallax Image -->
 
-  <div class="container text-center g-color-white g-py-200--md g-py-80">
-    <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span class="g-color-primary g-ml-10 g-font-weight-700 h1 city">Leuven</span></h2>
-
-
-
-  </div>
-  
-  
-</section>
-<!-- Location Info -->
-         
  
       
-      <!-- list discussions -->
+      <!-- Discussion Page -->
       
-      
+                  <div class="container g-pt-50">
+<div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
+  <h2 class="text-uppercase u-heading-v2__title g-mb-10">New Discussion</h2>
 
+</div>
 
-                <div class="container main">
-<ul class="list-unstyled g-mt-50" id="disclist">
+    <div id="status" class="g-color-primary g-mb-20"></div>
+    <form class="g-mb-30">
+
+  <!-- Text Input -->
+  <div class="form-group g-mb-20">
+    <input name="discname" id="discname" value="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
+
+  </div>
+  <!-- End Text Input -->
+  
+  
+
 
   
-</ul>
-                </div>
+<button id="addBtn" type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add Discussion</button>
+
+
+
+    
+</form>
+
+           
+             </div>
+
+
               
   
       
@@ -156,7 +158,7 @@
        -->
     </main>
 
-  <!-- JS Global Compulsory -->
+   <!-- JS Global Compulsory -->
     <script src="/assets/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
     <script src="/assets/vendor/tether.min.js"></script>
@@ -183,7 +185,7 @@
 
     <!-- JS Custom -->
     <script src="/assets/js/custom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     
        <script>
    
@@ -201,9 +203,10 @@
             var addBtn = element('addBtn');
 
           
-      /*    //set default status
-          var statusDefault = status.textContent;
-          var setStatus = function(s){
+       //set default status
+          statusDefault = status.textContent;
+          setStatus = function(s){
+         
               // Set Status
               status.textContent = s;
               
@@ -213,7 +216,7 @@
                  }, 4000);
                  }
               
-          } */
+          } 
           
           // Connect to socket.io
           var socket = io.connect('http://127.0.0.1:3005');
@@ -221,63 +224,7 @@
           //check for connection
           if(socket !== undefined) {
              console.log('Connected to socket...');
-              
-              
-              //OUTPUT Handler          
-           socket.on('output', function(data){
-          // console.log(data); 
-          if(data.length){
-                   for(var x = 0;x < data.length;x++){
-                       //build out message div
-                       var discussion = document.createElement('li');
              
-                       var mediah5 = document.createElement('div');
-                       var flexdiv = document.createElement('div');
-                       var discicon = document.createElement('i');
-                       var disclink = document.createElement('a');
-                       var mediabody = document.createElement('div');
-                       var discnamep = document.createElement('p');
-                       
-                       
-                       discussion.setAttribute('class','g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15');
-                       
-                       mediah5.setAttribute('class','media h5');
-                       
-                       flexdiv.setAttribute('class','d-flex g-mt-2 g-mr-15');
-                       
-                       discicon.setAttribute('class','fa fa-comments g-color-teal');
-                       
-                        mediabody.setAttribute('class','media-body');
-                       
-                       discnamep.setAttribute('class','g-color-gray-dark-v4 g-font-weight-700 g-mb-0');
-                       
-                       disclink.setAttribute('href', '/discussion/'+ data[x]._id +'');
-                       
-                       
-                       
-                       
-                       
-                       discnamep.textContent = data[x].name;
-                       
-                       mediabody.appendChild(discnamep);
-                       
-                       disclink.appendChild(mediabody);          
-                       
-                       flexdiv.appendChild(discicon);
-                               mediah5.appendChild(flexdiv);
-                       
-                       mediah5.appendChild(disclink);
-                       
-               
-                       
-                       discussion.appendChild(mediah5);
-                       
-                       disclist.appendChild(discussion);
-                       
-                       disclist.insertBefore(discussion, disclist.firstchild);
-                   }
-               } 
-           });
               
           /*    // GET Status from server
               socket.on('status', function(data){
@@ -291,26 +238,31 @@
                   
               }); */
               
-              // Handle Delete
-              delBtn.addEventListener('click', function(){
-                 socket.emit('clear'); 
+              // Handle Input
+              addBtn.addEventListener('click', function() {
+                
+            //emit server input
+                      socket.emit('input', {
+                         mod: mod.innerHTML,
+                         name: discname.value
+                      });
+                  
+                  setStatus("Discussion succesfully started!");
+                      
+                      event.preventDefault();
+                      
+                      
+                  
               });
               
-              //clearDisc
-              socket.on('cleared', function(){
-                  disclist.textContent ='';
-              });
-              
-       
              }
       
       })();
         
       </script>
 
+
     <!-- JS Plugins Init. -->
-    
- 
     <script>
       $(document).on('ready', function () {
         // initialization of carousel
@@ -339,6 +291,7 @@
         $.HSCore.components.HSHeader.init($('#js-header'));
         $.HSCore.helpers.HSHamburgers.init('.hamburger');
       });
+          
       });
     </script>
   </body>

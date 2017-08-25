@@ -37,6 +37,9 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
         socket.on('input', function(data){
            var mod = data.mod;
            var name = data.name;
+         /*  var location = data.location;
+           var question = data.question;
+           var answer = data.answer; */
 
            //check for mod and name
 
@@ -63,8 +66,6 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
 
 var index = require('./routes/index');
 var discussions = require('./routes/discussion');
-
-
 var users = require('./routes/user');
 
 
@@ -91,6 +92,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', index);
 app.use('/discussion', discussions);
 app.use('/user', users);
+
 
 app.listen(port, function() {
    console.log('Server started on port' +port);

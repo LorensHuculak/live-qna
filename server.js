@@ -3,11 +3,37 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require ('body-parser');
+var hbs = require('express-handlebars');
+var app = express();
+
+//POSTING
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+
 
 var Primus = require('primus');
+var mongoose = require('mongoose');
+var Discussion = require('./models/Discussion.model.js');
 
 var mongo = require('mongodb').MongoClient;
 var client = require('socket.io').listen(3005).sockets;
+
+
+ mongoose.connect('mongodb://127.0.0.1/qanda');
+/*app.get('/Discussions', function(req, res){
+console.log('getting all discs');
+Discussion.find({})
+    .exec(function(err, discussions){
+        if(err) {
+            res.send('error has occured')
+        } else {
+            res.json(discussions);
+        }
+    });
+}); */
 
 // Connect to MongoDB
 mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
@@ -18,7 +44,7 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
 
     // Connect Socket.io
     client.on('connection', function (socket) {
-         var disc = db.collection('discs');
+         var disc = db.collection('discussions');
 
          // Create function to send status
        var sendStatus = function(s){
@@ -73,13 +99,13 @@ var users = require('./routes/user');
 
 var port = 3000;
 
-var app = express();
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'hbs');
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout:'layout', layoutsDir: __dirname + '/views/layouts'}));
 
 // Set Static Folder (ANGULAR)
 app.use(express.static(path.join(__dirname, 'client')));

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
-    <title>Qanda</title>
+    <title>{{ title }}</title>
 
     <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
@@ -80,7 +80,7 @@
                 
                 
                 <li id="newdisc"class="nav-item g-mx-20--lg">
-                  <a id="moderator" href="/discussion/create" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
+                  <a id="moderator" href="/create" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
                 </li>
 
                 <li class="nav-item g-mx-20--lg">
@@ -103,22 +103,7 @@
   
           
           
-<!-- Location Info -->
-<section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
-  <!-- Parallax Image -->
-  <div class="divimage dzsparallaxer--target w-100 u-bg-overlay g-bg-black-opacity-0_4--after" style="height: 110%; background-image: url('assets/img/logo/qandabg.jpg'); transform: translate3d(0px, -246px, 0px);"></div>
-  <!-- End Parallax Image -->
 
-  <div class="container text-center g-color-white g-py-200--md g-py-80">
-    <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span class="g-color-primary g-ml-10 g-font-weight-700 h1 city">Leuven</span></h2>
-
-
-
-  </div>
-  
-  
-</section>
-<!-- Location Info -->
          
  
       
@@ -127,11 +112,8 @@
       
 
 
-                <div class="container main">
-<ul class="list-unstyled g-mt-50" id="disclist">
-
-  
-</ul>
+                <div>
+{{{ body }}}
                 </div>
               
   
@@ -251,7 +233,7 @@
                        
                        discnamep.setAttribute('class','g-color-gray-dark-v4 g-font-weight-700 g-mb-0');
                        
-                       disclink.setAttribute('href', '/discussion/id');
+                       disclink.setAttribute('href', '/discussions/id');
                        
                        
                        

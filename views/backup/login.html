@@ -65,7 +65,7 @@
             <!-- End Responsive Toggle Button -->
 
             <!-- Logo -->
-            <a href="index.html" class="navbar-brand">
+            <a href="./login" class="navbar-brand">
               <img src="/assets/img/logo/qanda.png" alt="Image Description">
             </a>
             <!-- End Logo -->
@@ -77,16 +77,10 @@
 
                 
                        
-                <a href="/discussions/create" class="btn btn-sm u-btn-outline-white g-font-weight-600  g-brd-2 rounded-0 nav-item g-mx-20--sm g-pt-8 g-pr-10 small">
- <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion
-</a>
-
-                <li class="nav-item g-mx-20--lg">
-                  <a id="moderator" class="nav-link g-px-0">Dirk</a>
-                </li>
+            
 
                 <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                  <a href="/user/login" class="nav-link g-px-0">Logout</a>
+                  <a href="./register" class="nav-link g-px-0">Register</a>
                 </li>
               </ul>
             </div>
@@ -108,76 +102,38 @@
       
                   <div class="container g-pt-50">
 <div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
-  <h2 class="text-uppercase u-heading-v2__title g-mb-10"><script id="entry-template" type="text/x-handlebars-template">{{name}}</script><i class="fa fa-unlock g-ml-20"></i><i class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10"></i><span class="g-color-gray-light-v1">4</span></h2>
-
+  <h2 class="text-uppercase u-heading-v2__title g-mb-10">LOGIN</h2>
 
 </div>
 
-
-                <div class="Question1">
-<!-- General Forms -->
-<form class="">
-  <!-- Text Input -->
-  <div class="form-group row g-mb-25">
-
-
-    <div class="col-sm-9">
-      <input id="hf-email" class="form-control u-form-control rounded-0" type="text" placeholder="Ask a Question...">
-     
-    </div>
     
-    <a href="#" class="btn u-btn-primary g-mr-10  g-mt-1 g-mb-15 g-width-150 g-height-35 rounded-0">
-  <i class="fa fa-paper-plane"></i>
-</a>
+    <form method="post" class="g-mb-30">
+
+  <!-- Text Input -->
+  <div class="form-group g-mb-20">
+    <input name="username" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
+
+        </div>
+      
+  <div class="form-group g-mb-20">
+    <input name="username" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Password...">
+
   </div>
   <!-- End Text Input -->
-
-</form>
-<!-- End General Forms -->
-         
-                <!-- begin questionblock -->
-                <ul class="questionlist">
-                <li class="qblock g-brd-around g-brd-gray-light-v4">
-                   
-                    
-                      <h3 class="g-pt-20 g-pl-20">This is my First Question?</h3>
-
-   <hr class="g-brd-gray-light-v4 g-mx-minus-30">
-                   
-                   <ul class="answerslist g-mb-30">
-                       
-                       <li><p><span class="userspan g-font-weight-600 g-mr-5 g-color-cyan">Lorens: </span> Hey Man</p></li>
-                          <li><p>Hey Man</p></li>
-                             <li><p>Hey Man</p></li>
-                   </ul>
-                   
-                   <form class="">
-  <!-- Text Input -->
-  <div class="form-group row">
+  
+  
 
 
-    <div class="col-sm-9">
-      <input id="hf-email" class="form-control u-form-control rounded-0 g-mb-0" type="text" placeholder="Answer this Question...">
-     
-    </div>
+  
+<button type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Let's Go</button>
+
+
+
     
-    <a href="#" class="btn u-btn-primary g-mr-10  g-mt-1 g-mb-0 g-width-150 g-height-35 rounded-0 g-bg-gray-dark-v4">
-  <i class="fa fa-paper-plane"></i>
-</a>
-  </div>
-  <!-- End Text Input -->
-
 </form>
-                    
-                </li>
-              
-                     
-                      </ul> 
-                      <!-- end question block -->
+
+
                       
-                      
-                  </div>
-                
              </div>
 
 
@@ -261,7 +217,6 @@
         $.HSCore.components.HSHeader.init($('#js-header'));
         $.HSCore.helpers.HSHamburgers.init('.hamburger');
       });
-           });
     </script>
   </body>
 </html>

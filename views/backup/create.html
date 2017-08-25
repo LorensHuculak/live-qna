@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="/assets/css/custom.css">
   </head>
 
+
   <body>
     <!-- Header -->
     <header id="js-header" class="u-header  u-header--toggle-section u-header--change-appearance"
@@ -65,7 +66,7 @@
             <!-- End Responsive Toggle Button -->
 
             <!-- Logo -->
-            <a href="index.html" class="navbar-brand">
+            <a href="/" class="navbar-brand">
               <img src="/assets/img/logo/qanda.png" alt="Image Description">
             </a>
             <!-- End Logo -->
@@ -76,10 +77,7 @@
               
 
                 
-                       
-                <a href="/discussions/create" class="btn btn-sm u-btn-outline-white g-font-weight-600  g-brd-2 rounded-0 nav-item g-mx-20--sm g-pt-8 g-pr-10 small">
- <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion
-</a>
+                
 
                 <li class="nav-item g-mx-20--lg">
                   <a id="moderator" class="nav-link g-px-0">Dirk</a>
@@ -108,76 +106,32 @@
       
                   <div class="container g-pt-50">
 <div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
-  <h2 class="text-uppercase u-heading-v2__title g-mb-10"><script id="entry-template" type="text/x-handlebars-template">{{name}}</script><i class="fa fa-unlock g-ml-20"></i><i class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10"></i><span class="g-color-gray-light-v1">4</span></h2>
-
+  <h2 class="text-uppercase u-heading-v2__title g-mb-10">New Discussion</h2>
 
 </div>
 
+    <div id="status" class="g-color-primary g-mb-20"></div>
+    <form class="g-mb-30">
 
-                <div class="Question1">
-<!-- General Forms -->
-<form class="">
   <!-- Text Input -->
-  <div class="form-group row g-mb-25">
+  <div class="form-group g-mb-20">
+    <input name="discname" id="discname" value="discname" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
 
-
-    <div class="col-sm-9">
-      <input id="hf-email" class="form-control u-form-control rounded-0" type="text" placeholder="Ask a Question...">
-     
-    </div>
-    
-    <a href="#" class="btn u-btn-primary g-mr-10  g-mt-1 g-mb-15 g-width-150 g-height-35 rounded-0">
-  <i class="fa fa-paper-plane"></i>
-</a>
   </div>
   <!-- End Text Input -->
-
-</form>
-<!-- End General Forms -->
-         
-                <!-- begin questionblock -->
-                <ul class="questionlist">
-                <li class="qblock g-brd-around g-brd-gray-light-v4">
-                   
-                    
-                      <h3 class="g-pt-20 g-pl-20">This is my First Question?</h3>
-
-   <hr class="g-brd-gray-light-v4 g-mx-minus-30">
-                   
-                   <ul class="answerslist g-mb-30">
-                       
-                       <li><p><span class="userspan g-font-weight-600 g-mr-5 g-color-cyan">Lorens: </span> Hey Man</p></li>
-                          <li><p>Hey Man</p></li>
-                             <li><p>Hey Man</p></li>
-                   </ul>
-                   
-                   <form class="">
-  <!-- Text Input -->
-  <div class="form-group row">
+  
+  
 
 
-    <div class="col-sm-9">
-      <input id="hf-email" class="form-control u-form-control rounded-0 g-mb-0" type="text" placeholder="Answer this Question...">
-     
-    </div>
+  
+<button id="addBtn" type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add Discussion</button>
+
+
+
     
-    <a href="#" class="btn u-btn-primary g-mr-10  g-mt-1 g-mb-0 g-width-150 g-height-35 rounded-0 g-bg-gray-dark-v4">
-  <i class="fa fa-paper-plane"></i>
-</a>
-  </div>
-  <!-- End Text Input -->
-
 </form>
-                    
-                </li>
-              
-                     
-                      </ul> 
-                      <!-- end question block -->
-                      
-                      
-                  </div>
-                
+
+           
              </div>
 
 
@@ -231,6 +185,82 @@
 
     <!-- JS Custom -->
     <script src="/assets/js/custom.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    
+       <script>
+   
+              
+    (function() {
+          var element = function(id){
+              return document.getElementById(id);
+          }
+          
+          //get elements
+          var mod = element('moderator');
+            var discname = element('discname');
+         var disclist = element('disclist');
+          var status = element('status');
+            var addBtn = element('addBtn');
+
+          
+       //set default status
+          statusDefault = status.textContent;
+          setStatus = function(s){
+         
+              // Set Status
+              status.textContent = s;
+              
+              if(s !== statusDefault) {
+                 var delay = setTimeout(function(){
+                     setStatus(statusDefault);
+                 }, 4000);
+                 }
+              
+          } 
+          
+          // Connect to socket.io
+          var socket = io.connect('http://127.0.0.1:3005');
+        
+          //check for connection
+          if(socket !== undefined) {
+             console.log('Connected to socket...');
+             
+              
+          /*    // GET Status from server
+              socket.on('status', function(data){
+                  //get disc status
+                  setStatus((typeof data === 'object')? data.message : data);
+                  
+                  // if status is clear, clear text
+                  if(data.clear) {
+                     textarea.value = '';
+                     }
+                  
+              }); */
+              
+              // Handle Input
+              addBtn.addEventListener('click', function() {
+                
+            //emit server input
+                      socket.emit('input', {
+                         mod: mod.innerHTML,
+                         name: discname.value
+                      });
+                  
+                  setStatus("Discussion succesfully started!");
+                      
+                      event.preventDefault();
+                      
+                      
+                  
+              });
+              
+             }
+      
+      })();
+        
+      </script>
+
 
     <!-- JS Plugins Init. -->
     <script>
@@ -261,7 +291,8 @@
         $.HSCore.components.HSHeader.init($('#js-header'));
         $.HSCore.helpers.HSHamburgers.init('.hamburger');
       });
-           });
+          
+      });
     </script>
   </body>
 </html>

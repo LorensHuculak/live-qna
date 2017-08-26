@@ -111,7 +111,7 @@
 <div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
   <h2 id="discname" class="text-uppercase u-heading-v2__title g-mb-10">{{name}}<i class="fa fa-unlock g-ml-20"></i></h2>
 
-<i id="counter" class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10 h5"> </i>
+<!--<i id="counter" class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10 h5">0</i>-->
 </div>
 
 
@@ -245,7 +245,7 @@
               return document.getElementById(id);
           }
           
-          //get elements
+          //Get DOM elements
       
             var question = element('question');
          var qlist = element('questionlist');
@@ -253,11 +253,10 @@
         var discname = element('discname');
         var addA = element('addA');
         var answer = element('answer');
-        var addanswer = element('addanswer');
-        var qname = element('qname');
-        var answerlist = element('answerlist');
+        var counter = element('counter');
+      
 
-        
+      
           
           // Connect to socket.io
           var socket = io.connect('http://127.0.0.1:3005');
@@ -265,27 +264,20 @@
           //check for connection
           if(socket !== undefined) {
              console.log('Connected to socket...');
-             
               
-          /*    // GET Status from server
-              socket.on('status', function(data){
-                  //get disc status
-                  setStatus((typeof data === 'object')? data.message : data);
-                  
-                  // if status is clear, clear text
-                  if(data.clear) {
-                     textarea.value = '';
-                     }
-                  
-              }); */
               
-                     // Handle Input Question
+
+              
+              
+// Handle Question Input
+         
               addQ.addEventListener('click', function() {
                 
             //emit server input
                       socket.emit('inputq', {
                          question: question.value,
                           discname: discname.textContent
+                     
                         
                          
                       });
@@ -298,11 +290,59 @@
                   
               });
               
-             
+                 /* counter   socket.on('countput', function(data){  
               
+
+              counter.innerHTML = data;
+                        
+                    }); */
+              
+ 
              }
         
-                  //OUTPUT Handler          
+        
+                  
+           
+        
+
+    
+        
+                     //OUTPUT Handler (Answers)        
+           socket.on('outputa', function(data){
+       
+          if(data.length){
+                   for(var x = 0;x < data.length;x++){
+                       //build out message div
+                       var ablock = document.createElement('li');
+                       var aname = document.createElement('p');
+             var namespan = document.createElement('span');
+ 
+             var answerlist = document.getElementById('answerlist');
+     
+                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
+                  
+                       aname.setAttribute('class', 'answer');
+                       
+                aname.textContent = data[x].answer;
+                  ablock.appendChild(namespan);
+                    
+                       namespan.textContent = data[x].user;
+                 
+                 
+                       ablock.appendChild(aname);
+            
+             answerlist.appendChild(ablock);
+
+            
+                   }
+     
+           }
+    });
+        
+        
+        
+        
+                  //OUTPUT Handler Questions        
            socket.on('outputq', function(data){
           // console.log(data); 
           if(data.length){
@@ -330,17 +370,12 @@
                        resinput.setAttribute('class','form-control u-form-control rounded-0 g-mb-0');
                        resinput.setAttribute('placeholder','Answer this Question...');
                          resinput.setAttribute('id','answer');
-                       reslink.setAttribute('class','btn u-btn-primary g-mr-10  g-mt-1 g-mb-0 g-width-150 g-height-35 rounded-0 g-bg-gray-dark-v4');
+                       reslink.setAttribute('class','addanswer btn u-btn-primary g-mr-10  g-mt-1 g-mb-0 g-width-150 g-height-35 rounded-0 g-bg-gray-dark-v4');
                         reslink.setAttribute('href','#');
-                       reslink.setAttribute('id', 'addanswer');
+                  
                        resico.setAttribute('class','fa fa-paper-plane g-color-white');
-                   
                        
-                
-                       
-                   
-                                            
-                       
+
                        if(data[x].discname === '{{ name }}') {
                        qname.textContent = data[x].question;
                        
@@ -356,13 +391,11 @@
                        qblock.appendChild(qname);
                        qblock.appendChild(hr);
                        qblock.appendChild(reslist);
-                       reslist.textContent = "{{{ content }}}";
+                 
                        qblock.appendChild(qform);
                        questionlist.appendChild(qblock);
-                       
-                         
-                       
-                                    
+              
+                   
                       
                        }
                
@@ -370,18 +403,60 @@
                     
                    }
                
-               
-                      
-                      
-                  
+        
       
               
-               } 
-           });
+             
+           }
+    });
+        
+        
+ 
         
         
         
+        
+        
+        //output answers
+        
+                  
+             
+        setTimeout(function(){  
+               
+               if(socket !== undefined) {
+              
+                var answer = element('answer');
+        var addanswer = element('addanswer');
+        var qname = element('qname');
+        var answerlist = element('answerlist');
+                   
+            console.log($(".addanswer").closest('form').find('input'));
+                   
+         $(".addanswer").click(function(){
+                
+            //emit server input
+                      socket.emit('inputa', {
+                          
+                      //   answer: $(".addanswer").closest('form').find('input').val(),
+                          answer: answer.value,
+                          discname: discname.textContent,
+                          question: qname.textContent,
+                          user: moderator.innerHTML
+                
+         
+                      });
+    console.log($(".addanswer").closest('form').find('input').val());
+                      event.preventDefault();
+
+              }); 
        
+                  }
+              
+                }, 300); 
+                       
+       
+   
+
               
       
       })();

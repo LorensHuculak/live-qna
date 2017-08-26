@@ -37,7 +37,7 @@ Discussion.find({})
 }); */
 
 // Connect to MongoDB
-
+var counter = 0;
 mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
    if(err){
       throw err;
@@ -50,10 +50,13 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
         var quest = db.collection('questions');
         var answ = db.collection('answers');
 
+
          // Create function to send status
        var sendStatus = function(s){
            socket.emit('status', s);
-        }
+        };
+
+
 
 
         // Get discs from mongo collection
@@ -84,6 +87,15 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
         });
 
 
+            counter++;
+            client.emit('countput', counter);
+
+
+      
+
+
+
+
 
 
         //handle input events
@@ -91,11 +103,7 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
            var mod = data.mod;
            var name = data.name;
            var location = data.location;
-         /*  var location = data.location;
-           var question = data.question;
-           var answer = data.answer; */
 
-           //check for mod and name
 
                disc.insert({mod: mod, name: name, location: location}, function (){
                   client.emit('output', [data]);
@@ -108,11 +116,7 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
         socket.on('inputq', function(data){
             var question = data.question;
             var discname = data.discname;
-            /*  var location = data.location;
-              var question = data.question;
-              var answer = data.answer; */
 
-            //check for mod and name
 
             quest.insert({question: question, discname: discname}, function (){
                 client.emit('outputq', [data]);
@@ -144,13 +148,15 @@ mongo.connect('mongodb://127.0.0.1/qanda', function(err, db) {
 
 
         //handle clear
-        socket.on('clear', function(){
-           //remove all discs from collection
-            disc.remove({}, function(){
-               //emit cleared
-                socket.emit('cleared');
-            });
+        socket.on('disconnect', function(){
+
+            counter--;
+            client.emit('countput', counter);
+
+
         });
+
+
     });
 });
 

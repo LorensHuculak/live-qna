@@ -110,7 +110,9 @@
   <!-- End Parallax Image -->
 
   <div class="container text-center g-color-white g-py-200--md g-py-80">
+   <h5 class="g-color-gray-light-v2 text-center ">Active Users: <span class="g-color-gray-light-v2 g-font-weight-600" id="counter"></span></h5>
     <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span id="locationspan" class="g-color-primary g-ml-10 g-font-weight-700 h1 city"></span></h2>
+
 
 
 
@@ -164,14 +166,16 @@
       
       <!-- list discussions -->
       
-      
+
 
 
                 <div class="container main">
+                     
 <ul class="list-unstyled g-mt-50" id="disclist">
 
   
 </ul>
+                    
                 </div>
               
   
@@ -259,12 +263,21 @@
           
           // Connect to socket.io
           var socket = io.connect('http://127.0.0.1:3005');
+      
+      var clientCount = 0;
         
           //check for connection
           if(socket !== undefined) {
              console.log('Connected to socket...');
               
+               socket.on('countput', function(data){  
               
+
+              counter.textContent = data;
+                        
+                    });
+              
+        
               //OUTPUT Handler          
      
     //do what you need here
@@ -345,7 +358,7 @@
       
       })();
                         
-                        }, 200);
+                        }, 300);
         
       </script>
 

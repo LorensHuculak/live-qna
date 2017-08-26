@@ -310,7 +310,8 @@
                        
                        disclink.setAttribute('href', '/discussion/'+ data[x]._id +'');
                        
-                      
+                       
+                       if(data[x].name != "")  {                 
                   var locfilter = location.innerHTML;
                      
                         if(data[x].location == locfilter) {
@@ -334,6 +335,7 @@
                        
                        disclist.insertBefore(discussion, disclist.firstchild);
                            }
+                           }     
                    }
                } 
            });

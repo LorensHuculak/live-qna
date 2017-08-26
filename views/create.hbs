@@ -120,13 +120,13 @@
   </div>
   <!-- End Text Input -->
   
-  <p class="g-color-gray-dark-v4">Area: <span class="g-color-teal g-font-weight-600" id="locationspan"></span></p>
+  <p class="g-color-gray-dark-v4">Area: <span class="g-color-primary g-font-weight-600" id="locationspan"></span></p>
   
   
 
 
   
-<button id="addBtn" type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add Discussion</button>
+<button id="addBtn" type="submit" class="btn u-btn-outline-teal g-mr-10 g-mt-20 rounded-0">Add Discussion</button>
 
 
 
@@ -211,7 +211,14 @@
           setStatus = function(s){
          
               // Set Status
-              status.textContent = s;
+              if (s == "Please enter a valid name"){
+              status.setAttribute('class', 'g-color-red g-mb-20')
+                  status.textContent = s;
+                  
+                  } else {
+                      status.setAttribute('class', 'g-color-teal g-mb-20')
+                  status.textContent = s; 
+                  }
               
               if(s !== statusDefault) {
                  var delay = setTimeout(function(){
@@ -251,7 +258,12 @@
                          location: location.textContent
                       });
                   
-                  setStatus("Discussion succesfully started!");
+                  if(discname.value != "") {
+                  
+                  setStatus("Discussion started successfully");
+                      } else {
+                          setStatus("Please enter a valid name");
+                      }
                       
                       event.preventDefault();
                       

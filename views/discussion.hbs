@@ -77,17 +77,17 @@
               
 
                 
-                       
-                <a href="/create" class="btn btn-sm u-btn-outline-white g-font-weight-600  g-brd-2 rounded-0 nav-item g-mx-20--sm g-pt-8 g-pr-10 small">
- <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion
-</a>
+                 
+                <li id="newdisc"class="nav-item g-mx-20--lg">
+                  <a  href="/create" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
+                </li>
 
                 <li class="nav-item g-mx-20--lg">
-                  <a id="moderator" class="nav-link g-px-0">Dirk</a>
+                  <a id="moderator" class="nav-link g-px-0">{{username}}</a>
                 </li>
 
                 <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                  <a href="/user/login" class="nav-link g-px-0">Logout</a>
+                  <a href="/user/logout" class="nav-link g-px-0">Logout</a>
                 </li>
               </ul>
             </div>
@@ -114,6 +114,7 @@
 <!--<i id="counter" class="fa fa-user g-color-gray-light-v1 g-ml-20 g-mr-10 h5">0</i>-->
 </div>
 
+<div id="status" class="g-color-primary g-mb-20"></div>
 
 
 
@@ -254,8 +255,30 @@
         var addA = element('addA');
         var answer = element('answer');
         var counter = element('counter');
-      
-
+      var status = element('status');
+    
+       //set default status
+          //set default status
+          statusDefault = status.textContent;
+          setStatus = function(s){
+         
+              // Set Status
+              if (s == "Please enter a valid question"){
+              status.setAttribute('class', 'g-color-red g-mb-20')
+                  status.textContent = s;
+                  
+                  } else {
+                      status.setAttribute('class', 'g-color-teal g-mb-20')
+                  status.textContent = s; 
+                  }
+              
+              if(s !== statusDefault) {
+                 var delay = setTimeout(function(){
+                     setStatus(statusDefault);
+                 }, 4000);
+                 }
+              
+          } 
       
           
           // Connect to socket.io
@@ -285,6 +308,16 @@
               
                       
                       event.preventDefault();
+                  
+                      if(question.value != "") {
+                  
+                  setStatus("Question asked!");
+                      } else {
+                          setStatus("Please enter a valid question");
+                      }
+                      
+                      event.preventDefault();
+                      
                       
                       
                   
@@ -431,6 +464,7 @@
         var answerlist = element('answerlist');
                    
             console.log($(".addanswer").closest('form').find('input'));
+                   console.log(moderator.innerHTML);
                    
          $(".addanswer").click(function(){
                 
@@ -441,7 +475,7 @@
                           answer: answer.value,
                           discname: discname.textContent,
                           question: qname.textContent,
-                          user: moderator.innerHTML
+                          user: moderator.textContent
                 
          
                       });

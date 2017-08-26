@@ -3,10 +3,13 @@ var router = express.Router();
 var mongojs = require('mongojs');
 var mongoose = require('mongoose');
 var Discussion = require('../models/Discussion.model.js');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('../models/User.model.js');
 
 
 
-router.get('/', function(req, res){
+router.get('/',  function(req, res){
     console.log('getting all discs');
     Discussion.find({})
         .exec(function(err, discussions){
@@ -18,12 +21,12 @@ router.get('/', function(req, res){
         });
 });
 
-router.get('/:id', function(req, res){
+router.get('/:id', ensureAuthenticated,  function(req, res){
     console.log('getting one disc');
     Discussion.findOne({
         _id: req.params.id
     }).exec(function(err, discussion){
-        res.render('discussion', {"name": discussion.name});
+        res.render('discussion', {"name": discussion.name, "username": req.user.name});
 
     });
 });
@@ -54,7 +57,14 @@ router.delete('/:id', function(req,res){
     })
 })
 
-
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        //req.flash('error_msg','You are not logged in');
+        res.redirect('/user/login');
+    }
+}
 
 
 

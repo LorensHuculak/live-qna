@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 var DiscSchema = new Schema({
     name: {
         type: String,
-        required: true,
         unique: true
     },
     mod: String,

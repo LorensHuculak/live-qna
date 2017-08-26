@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 var AnswerSchema = new Schema({
     answer: {
         type: String,
-        required: true,
         unique: true
     },
     discname: String,

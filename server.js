@@ -13,7 +13,9 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
-var Primus = require('primus');
+
+var mongo = require('mongodb');
+var mongoose = require('mongoose');
 
 // init server
 var app = express();
@@ -34,6 +36,8 @@ app.use(session({
     saveUninitialized: true,
     resave: true
 }));
+
+
 
 // Passport init
 app.use(passport.initialize());
@@ -77,6 +81,7 @@ var mongoose = require('mongoose');
 var Discussion = require('./models/Discussion.model.js');
 var Question = require('./models/Question.model.js');
 var Answer = require('./models/Answer.model.js');
+var User = require('./models/User.model.js');
 var mongow = require('mongodb').MongoClient;
 var client = require('socket.io').listen(3005).sockets;
 

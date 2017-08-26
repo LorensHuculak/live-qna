@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 var QuestSchema = new Schema({
     question: {
         type: String,
-        required: true,
         unique: true
     },
     discname: String

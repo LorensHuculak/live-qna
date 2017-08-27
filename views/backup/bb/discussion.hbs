@@ -115,13 +115,9 @@
       
 if("{{username}}" == "{{mod}}" ) {
    var lock = document.createElement('i');
-      var dellink = document.createElement('a');
-      dellink.setAttribute('id', 'delete')
     var discname = document.getElementById('discname');
-      
- lock.setAttribute('class', 'fa fa-trash g-ml-20 g-color-red');
-      dellink.appendChild(lock);
-    discname.appendChild(dellink);
+ lock.setAttribute('class', 'fa fa-unlock g-ml-20');
+    discname.appendChild(lock);
 
    }
    
@@ -348,14 +344,24 @@ if("{{username}}" == "{{mod}}" ) {
                         
                     }); */
               
-              
-              
-              
+ 
+             }
         
+        
+                  
+           
+        
+
+    
+        
+                     //OUTPUT Handler (Answers)        
+       
+           
+       
         
                   //OUTPUT Handler Questions        
            socket.on('outputq', function(data){
-            
+               
                
                
           // console.log(data); 
@@ -374,18 +380,14 @@ if("{{username}}" == "{{mod}}" ) {
                        var resico = document.createElement('i');
                        var trash = document.createElement('i');
                        var trashlink = document.createElement('a');
-                  var answerlist = document.getElementById('answerlist');
+             
                         qblock.setAttribute('class','qblock g-brd-around g-brd-gray-light-v4');
                         qname.setAttribute('class','g-pt-20 g-pl-20');
                        qname.setAttribute('id', 'qname');
-                       
-                       
-                     /*  trashlink.setAttribute('id', data[x]._id);
+                       trashlink.setAttribute('id', data[x]._id);
                        trashlink.setAttribute('href', "#");
                             trashlink.setAttribute('class', "trash");
-                       trash.setAttribute('class', 'fa fa-trash g-color-gray-light-v3 g-ml-20');
-                       */
-                       
+                       trash.setAttribute('class', 'fa fa-trash g-color-gray-light-v3 g-ml-20')
                         hr.setAttribute('class','g-brd-gray-light-v4');
                        reslist.setAttribute('class','answerslist g-mb-30');
                        reslist.setAttribute('id', 'answerlist');
@@ -408,106 +410,54 @@ if("{{username}}" == "{{mod}}" ) {
                        formdiv.appendChild(coldiv);
                        coldiv.appendChild(resinput);
                        formdiv.appendChild(reslink); 
-  
+                       
+                       
+                       
+                       
                        
                        reslink.appendChild(resico);
                        
-      
+                       
+                       
                        
                        if("{{username}}" == "{{mod}}" ) {
   trashlink.appendChild(trash);
                        qname.appendChild(trashlink);
 
    }
-             
+                
+                   
                        qblock.appendChild(qname);
                        qblock.appendChild(hr);
-              
-              
-       /*        if(item.length){
-                   for(var y = 0;y < item.length;y++){
-                       //build out message div
-                         
-                       var ablock = document.createElement('li');
-                       var aname = document.createElement('p');
-             var namespan = document.createElement('span');
-                       var answerlist = document.getElementById('answerlist');
- 
-          
-     
-                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
-                  
-                       aname.setAttribute('class', 'answer');
-                       console.log(qname.textContent);
                    
-                       
-                aname.textContent = item[y].answer;
-                  ablock.appendChild(namespan);
-                    
-                       namespan.textContent = item[y].user;
-                 
-                 
-                       ablock.appendChild(aname);
-            if (aname.textContent !=="") {
-             reslist.appendChild(ablock);
-           
-                   }
             
-                   }
-                         } */
-              
-
+                            
+                            
+                  
+                            
+                            
+                      
+                       
+                       
+                       
                        qblock.appendChild(reslist);
            
-
+                 
                        qblock.appendChild(qform);
                        questionlist.appendChild(qblock);
-       
+              
+                   
+                      
                        }
-
+              
+              
+               
+           
                     
                    }
-
-             
-           }
-          
-          
-    });
-             
+               
         
-// END OUTPUT QUESTIONS
-              
-          socket.on('deleted', function(data){
-              
-             questionlist.innerHTML = "";
-          
-    });
-              
-             
-       
-              
-              
-
-         
-      // Delete Button
-
-     var trash = document.getElementById('delete');
-
-
-         
-         $("#delete").click(function() {
-
-              socket.emit('delete');
-             setStatus('Discussion cleared.');
-                        
-                         event.preventDefault();  
-         
-         
-});  
-  
-              
-           /*   
-                      socket.on('outputa', function(item){ 
+                            socket.on('outputa', function(item){ 
                      
                          if(item.length){
                    for(var y = 0;y < item.length;y++){
@@ -540,26 +490,26 @@ if("{{username}}" == "{{mod}}" ) {
             
                    }
                          }
-     }); */
+     });
+             
+             
+           }
+                     
+                 
+          
+    });
+        
+        
  
- 
-              //END UNDEFINED
-          }
-                   
-      
-       
-   
-
-    
         
         
         
       
-       //output answers
+        //output answers
         
                   
              
-       setTimeout(function(){  
+        setTimeout(function(){  
                
                if(socket !== undefined) {
               
@@ -572,7 +522,7 @@ if("{{username}}" == "{{mod}}" ) {
                    console.log(moderator.innerHTML);
                    
          $(".addanswer").click(function(){
-                  event.preventDefault();
+                
             //emit server input
                       socket.emit('inputa', {
                           
@@ -585,17 +535,28 @@ if("{{username}}" == "{{mod}}" ) {
          
                       });
     console.log($(".addanswer").closest('form').find('input').val());
-                    
+                      event.preventDefault();
 
               }); 
                    
-          
+                     $(".trash").click(function(){
+ 
+                          socket.emit('delete', {
+                          
+                      //   answer: $(".addanswer").closest('form').find('input').val(),
+                          id: $(this).attr('id')
+                
+         
+                      });
+           event.preventDefault();
+                         console.log($('.trash').attr('id'));
+        });
                    
                    
        
                   }
               
-                }, 300);  
+                }, 300); 
                        
        
    

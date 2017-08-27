@@ -12,6 +12,11 @@ var UserSchema = mongoose.Schema({
     },
     email: {
         type: String
+    },
+    role: {
+        type: String,
+        enum: ['REGULAR', 'MODERATOR'],
+        default: 'REGULAR'
     }
 });
 

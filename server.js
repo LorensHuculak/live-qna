@@ -140,6 +140,8 @@ mongow.connect('mongodb://127.0.0.1/qanda', function(err, db) {
             socket.emit('outputq', res);
         });
 
+
+
         // Get answers from mongo collection
         answ.find().limit(100).sort({_id:1}).toArray(function(err, res){
             if(err) {
@@ -211,14 +213,26 @@ mongow.connect('mongodb://127.0.0.1/qanda', function(err, db) {
 
 
         //handle clear
-        socket.on('disconnect', function(){
+        socket.on('delete', function(data){
 
-            counter--;
-            client.emit('countput', counter);
+        //    var delement = data.id;
+
+            quest.remove({}, function (){
+                client.emit('deleted');
+
+
+            });
 
 
         });
 
+
+        socket.on('disconnect', function(data){
+
+            counter--;
+            client.emit('countput', counter);
+
+        });
 
     });
 });

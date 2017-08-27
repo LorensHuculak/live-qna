@@ -26,7 +26,7 @@ router.get('/:id', ensureAuthenticated,  function(req, res){
     Discussion.findOne({
         _id: req.params.id
     }).exec(function(err, discussion){
-        res.render('discussion', {"name": discussion.name, "username": req.user.name});
+        res.render('discussion', {"name": discussion.name, "username": req.user.name, "mod": discussion.mod});
 
     });
 });

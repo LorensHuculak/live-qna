@@ -6,11 +6,11 @@ var Schema = mongoose.Schema;
 var AnswerSchema = new Schema({
     answer: {
         type: String,
-        unique: true
     },
     discname: String,
     question: String,
-    user: String
+    user: String,
+    qid: String
 
 });
 

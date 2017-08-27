@@ -183,7 +183,8 @@ mongow.connect('mongodb://127.0.0.1/qanda', function(err, db) {
             var discname = data.discname;
 
 
-            quest.insert({question: question, discname: discname}, function (){
+            quest.insert({question: question, discname: discname}, function (err, res){
+                data._id = res.insertedIds[0];
                 client.emit('outputq', [data]);
 
 
@@ -195,6 +196,7 @@ mongow.connect('mongodb://127.0.0.1/qanda', function(err, db) {
             var answer = data.answer;
             var discname = data.discname;
             var question = data.question;
+            var qid = data.qid;
             var user = data.user;
 
             /*  var location = data.location;
@@ -203,7 +205,8 @@ mongow.connect('mongodb://127.0.0.1/qanda', function(err, db) {
 
             //check for mod and name
 
-            answ.insert({answer: answer, discname: discname, question: question, user: user}, function (){
+            answ.insert({answer: answer, discname: discname, question: question, qid: qid, user: user}, function (err,res){
+
                 client.emit('outputa', [data]);
 
 
@@ -217,10 +220,14 @@ mongow.connect('mongodb://127.0.0.1/qanda', function(err, db) {
 
         //    var delement = data.id;
 
-            quest.remove({}, function (){
+            quest.remove({discname: data.discname}, function (){
                 client.emit('deleted');
 
 
+            });
+
+            answ.remove({discname: data.discname}, function (){
+                client.emit('deleted');
             });
 
 

@@ -147,7 +147,7 @@ if("{{username}}" == "{{mod}}" ) {
      
     </div>
     
-    <a href="#" id="addQ" type="submit" class="btn u-btn-teal g-mr-10  g-mt-1 g-mb-15 g-width-150 g-height-35 rounded-0">
+    <a href="#" id="addQ" class="btn u-btn-teal g-mr-10  g-mt-1 g-mb-15 g-width-150 g-height-35 rounded-0">
   <i class="fa fa-paper-plane"></i>
 </a>
   </div>
@@ -318,6 +318,7 @@ if("{{username}}" == "{{mod}}" ) {
                       socket.emit('inputq', {
                          question: question.value,
                           discname: discname.textContent
+                    
                      
                         
                          
@@ -336,7 +337,7 @@ if("{{username}}" == "{{mod}}" ) {
                       
                       event.preventDefault();
                       
-                      
+                      question.value = "";
                       
                   
               });
@@ -358,7 +359,7 @@ if("{{username}}" == "{{mod}}" ) {
             
                
                
-          // console.log(data); 
+          console.log(data); 
           if(data.length){
                    for(var x = 0;x < data.length;x++){
                        //build out message div
@@ -374,26 +375,33 @@ if("{{username}}" == "{{mod}}" ) {
                        var resico = document.createElement('i');
                        var trash = document.createElement('i');
                        var trashlink = document.createElement('a');
+                       var id = data[x]._id;
                   var answerlist = document.getElementById('answerlist');
+                       qblock.setAttribute('id', 'list-' + data[x]._id); 
+                          resinput.setAttribute('id', 'input-' + data[x]._id); 
+                          reslink.setAttribute('id', 'btn-' + data[x]._id); 
+                       reslink.setAttribute('data-id',id);
+                       
                         qblock.setAttribute('class','qblock g-brd-around g-brd-gray-light-v4');
                         qname.setAttribute('class','g-pt-20 g-pl-20');
                        qname.setAttribute('id', 'qname');
                        
                        
                      /*  trashlink.setAttribute('id', data[x]._id);
-                       trashlink.setAttribute('href', "#");
+                       trashlink.setAtetAtribute('href', "#");
                             trashlink.setAttribute('class', "trash");
                        trash.setAttribute('class', 'fa fa-trash g-color-gray-light-v3 g-ml-20');
                        */
                        
                         hr.setAttribute('class','g-brd-gray-light-v4');
                        reslist.setAttribute('class','answerslist g-mb-30');
-                       reslist.setAttribute('id', 'answerlist');
+                      // reslist.setAttribute('id', 'answerlist');
+                       reslist.setAttribute('id', 'alist-' + data[x]._id);
                         formdiv.setAttribute('class','form-group row');
                         coldiv.setAttribute('class','col-sm-9');
                        resinput.setAttribute('class','form-control u-form-control rounded-0 g-mb-0');
                        resinput.setAttribute('placeholder','Answer this Question...');
-                         resinput.setAttribute('id','answer');
+                        // resinput.setAttribute('id','answer');
                        reslink.setAttribute('class','addanswer btn g-mt-1 g-mb-0 g-width-150 g-height-35 rounded-0 g-bg-gray-light-v1');
                         reslink.setAttribute('href','#');
                   
@@ -467,12 +475,47 @@ if("{{username}}" == "{{mod}}" ) {
 
                     
                    }
-
+                                  
              
            }
           
           
     });
+              
+                socket.on('outputa', function(item){ 
+                     console.log( item );
+                         if(item.length){
+                   for(var y = 0;y < item.length;y++){
+                       //build out message div
+                         
+                       var ablock = document.createElement('li');
+                       var aname = document.createElement('p');
+             var namespan = document.createElement('span');
+                       var answerlist = document.getElementById('alist-'+ item[y].qid);
+ 
+        
+     
+                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
+                  
+                       aname.setAttribute('class', 'answer g-color-gray-dark-v3');
+                  
+                   
+                       
+                aname.innerHTML = findimg(item[y].answer);
+                  ablock.appendChild(namespan);
+                    
+                       namespan.textContent = item[y].user;
+                 
+                 
+                       ablock.appendChild(aname);
+         
+             answerlist.appendChild(ablock);
+           
+                
+            
+                   }
+                         }
+     }); 
              
         
 // END OUTPUT QUESTIONS
@@ -497,7 +540,10 @@ if("{{username}}" == "{{mod}}" ) {
          
          $("#delete").click(function() {
 
-              socket.emit('delete');
+              socket.emit('delete',{
+                  discname: discname.textContent
+                  
+              });
              setStatus('Discussion cleared.');
                         
                          event.preventDefault();  
@@ -506,41 +552,8 @@ if("{{username}}" == "{{mod}}" ) {
 });  
   
               
-           /*   
-                      socket.on('outputa', function(item){ 
-                     
-                         if(item.length){
-                   for(var y = 0;y < item.length;y++){
-                       //build out message div
-                         
-                       var ablock = document.createElement('li');
-                       var aname = document.createElement('p');
-             var namespan = document.createElement('span');
-                       var answerlist = document.getElementById('answerlist');
- 
-          
-     
-                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
-                  
-                       aname.setAttribute('class', 'answer');
-                       console.log(qname.textContent);
-                   
-                       
-                aname.textContent = item[y].answer;
-                  ablock.appendChild(namespan);
-                    
-                       namespan.textContent = item[y].user;
-                 
-                 
-                       ablock.appendChild(aname);
-            if (aname.textContent !=="") {
-             answerlist.appendChild(ablock);
            
-                   }
-            
-                   }
-                         }
-     }); */
+       
  
  
               //END UNDEFINED
@@ -568,24 +581,32 @@ if("{{username}}" == "{{mod}}" ) {
         var qname = element('qname');
         var answerlist = element('answerlist');
                    
-            console.log($(".addanswer").closest('form').find('input'));
+            //console.log($(".addanswer").closest('form').find('input'));
                    console.log(moderator.innerHTML);
                    
-         $(".addanswer").click(function(){
-                  event.preventDefault();
+         $("body").on("click", ".addanswer", function(event){
+             event.preventDefault();
+                
+             // button select + data-id opvrage,
+             var qid = $(this).attr('data-id');
+             var answer = $('#input-' + qid);
+             
+             console.log( answer.value +' - '+answer.val() );
+             
             //emit server input
                       socket.emit('inputa', {
                           
                       //   answer: $(".addanswer").closest('form').find('input').val(),
-                          answer: answer.value,
+                          answer: answer.val(),
+                          qid: qid,
                           discname: discname.textContent,
                           question: qname.textContent,
                           user: moderator.textContent
                 
          
                       });
-    console.log($(".addanswer").closest('form').find('input').val());
-                    
+    //console.log($(".addanswer").closest('form').find('input').val());
+                    answer.val('');
 
               }); 
                    

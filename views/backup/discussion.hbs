@@ -344,13 +344,42 @@
                      //OUTPUT Handler (Answers)        
        
            
+           socket.on('outputa', function(data){
        
+          if(data.length){
+                   for(var x = 0;x < data.length;x++){
+                       //build out message div
+                       var ablock = document.createElement('li');
+                       var aname = document.createElement('p');
+             var namespan = document.createElement('span');
+ 
+             var answerlist = document.getElementById('answerlist');
+     
+                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
+                  
+                       aname.setAttribute('class', 'answer');
+                       console.log(qname.textContent);
+                          if(data[x].discname === '{{ name }}') {   
+                       
+                aname.textContent = data[x].answer;
+                  ablock.appendChild(namespan);
+                    
+                       namespan.textContent = data[x].user;
+                 
+                 
+                       ablock.appendChild(aname);
+            
+             answerlist.appendChild(ablock);
+                   }
+            
+                   }
+     
+           }
+    });
+        
         
                   //OUTPUT Handler Questions        
            socket.on('outputq', function(data){
-               
-               
-               
           // console.log(data); 
           if(data.length){
                    for(var x = 0;x < data.length;x++){
@@ -405,8 +434,6 @@
                    
                       
                        }
-              
-              
                
            
                     
@@ -414,42 +441,9 @@
                
         
       
-             
+              
              
            }
-                     
-                       socket.on('outputa', function(data){ 
-                     
-                     
-                   for(var x = 0;x < data.length;x++){
-                       //build out message div
-                       var ablock = document.createElement('li');
-                       var aname = document.createElement('p');
-             var namespan = document.createElement('span');
- 
-             var answerlist = document.getElementById('answerlist');
-     
-                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
-                  
-                       aname.setAttribute('class', 'answer');
-                       console.log(qname.textContent);
-                          if(data[x].discname === '{{ name }}' && data[x].question == qname.textContent) {   
-                       
-                aname.textContent = data[x].answer;
-                  ablock.appendChild(namespan);
-                    
-                       namespan.textContent = data[x].user;
-                 
-                 
-                       ablock.appendChild(aname);
-            if (aname.textContent !=="") {
-             answerlist.appendChild(ablock);
-                }
-                   }
-            
-                   }
-     });
-          
     });
         
         

@@ -457,40 +457,7 @@ if("{{username}}" == "{{mod}}" ) {
                    }
                
         
-                            socket.on('outputa', function(item){ 
-                     
-                         if(item.length){
-                   for(var y = 0;y < item.length;y++){
-                       //build out message div
-                         
-                       var ablock = document.createElement('li');
-                       var aname = document.createElement('p');
-             var namespan = document.createElement('span');
-                       var answerlist = document.getElementById('answerlist');
- 
-          
-     
-                       namespan.setAttribute('class', 'userspan g-font-weight-600 g-mr-5 g-color-cyan');
-                  
-                       aname.setAttribute('class', 'answer');
-                       console.log(qname.textContent);
-                   
-                       
-                aname.textContent = item[y].answer;
-                  ablock.appendChild(namespan);
                     
-                       namespan.textContent = item[y].user;
-                 
-                 
-                       ablock.appendChild(aname);
-            if (aname.textContent !=="") {
-             answerlist.appendChild(ablock);
-           
-                   }
-            
-                   }
-                         }
-     });
              
              
            }

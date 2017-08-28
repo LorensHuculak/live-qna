@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+
+<head>
     <title>Qanda</title>
 
-    <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -21,9 +21,7 @@
     <link rel="stylesheet" href="/assets/vendor/icon-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/vendor/icon-line-pro/style.css">
     <link rel="stylesheet" href="/assets/vendor/icon-hs/style.css">
-
     <link rel="stylesheet" href="/assets/vendor/hamburgers/hamburgers.min.css">
-
     <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
     <link rel="stylesheet" href="/assets/vendor/dzsparallaxer/dzsparallaxer.css">
     <link rel="stylesheet" href="/assets/vendor/dzsparallaxer/dzsscroller/scroller.css">
@@ -37,170 +35,91 @@
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="/assets/css/custom.css">
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- Header -->
-    <header id="js-header" class="u-header  u-header--toggle-section u-header--change-appearance"
-            data-header-fix-moment="300">
-      <div class="u-header__section u-header__section--dark g-bg-primary-gradient-opacity-v1 g-transition-0_3 g-py-10"
-           data-header-fix-moment-exclude="g-py-10"
-           data-header-fix-moment-classes="g-py-0">
-        <nav class="navbar navbar-toggleable-md">
-          <div class="container">
-            <!-- Responsive Toggle Button -->
-            <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0" type="button"
-                    aria-label="Toggle navigation"
-                    aria-expanded="false"
-                    aria-controls="navBar"
-                    data-toggle="collapse"
-                    data-target="#navBar"
-            >
-              <span class="hamburger hamburger--slider">
+    <header id="js-header" class="u-header  u-header--toggle-section u-header--change-appearance" data-header-fix-moment="300">
+        <div class="u-header__section u-header__section--dark g-bg-primary-gradient-opacity-v1 g-transition-0_3 g-py-10" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="g-py-0">
+            <nav class="navbar navbar-toggleable-md">
+                <div class="container">
+                    <!-- Responsive Toggle Button -->
+                    <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+                        <span class="hamburger hamburger--slider">
                 <span class="hamburger-box">
                   <span class="hamburger-inner"></span>
-                </span>
-              </span>
-            </button>
-            <!-- End Responsive Toggle Button -->
+                        </span>
+                        </span>
+                    </button>
+                    <!-- End Responsive Toggle Button -->
 
-            <!-- Logo -->
-            <a href="/" class="navbar-brand">
-              <img src="/assets/img/logo/qanda.png" alt="Image Description">
-            </a>
-            <!-- End Logo -->
+                    <!-- Logo -->
+                    <a href="/" class="navbar-brand">
+                        <img src="/assets/img/logo/qanda.png" alt="Image Description">
+                    </a>
+                    <!-- End Logo -->
 
-            <!-- Navigation -->
-            <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
-              <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
-              
+                    <!-- Navigation -->
+                    <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
+                        <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
 
-                
-                
-                
-                
-                <li id="newdisc"class="nav-item g-mx-20--lg">
-                  <a href="/create" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
-                </li>
+                            <li id="newdisc" class="nav-item g-mx-20--lg">
+                                <a href="/create" class="nav-link g-px-0"> <i class="fa fa-plus g-ml-3 g-mr-5"></i> Discussion</a>
+                            </li>
 
-                <li class="nav-item g-mx-20--lg">
-                  <a id="moderator" class="nav-link g-px-0">{{ username }}</a>
-                </li>
+                            <li class="nav-item g-mx-20--lg">
+                                <a id="moderator" class="nav-link g-px-0">{{ username }}</a>
+                            </li>
 
-                <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                  <a href="/user/logout" class="nav-link g-px-0">Logout</a>
-                </li>
-              </ul>
-            </div>
-            <!-- End Navigation -->
-          </div>
-        </nav>
-      </div>
+                            <li class="nav-item g-ml-20--lg g-mr-0--lg">
+                                <a href="/user/logout" class="nav-link g-px-0">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Navigation -->
+                </div>
+            </nav>
+        </div>
     </header>
     <!-- End Header -->
 
-    <main >
-  
-          
-          
-<!-- Location Info -->
-<section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
-  <!-- Parallax Image -->
-  <div class="divimage dzsparallaxer--target w-100 u-bg-overlay g-bg-black-opacity-0_4--after" style="height: 110%; background-image: url('assets/img/logo/qandabg.jpg'); transform: translate3d(0px, -246px, 0px);"></div>
-  <!-- End Parallax Image -->
-
-  <div class="container text-center g-color-white g-py-200--md g-py-80">
-   <h5 class="g-color-gray-light-v2 text-center ">Active Users: <span class="g-color-gray-light-v2 g-font-weight-600" id="counter"></span></h5>
-    <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span id="locationspan" class="g-color-primary g-ml-10 g-font-weight-700 h1 city"></span></h2>
+    <main>
 
 
 
+        <!-- Location Info -->
+        <section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
+            <!-- Parallax Image -->
+            <div class="divimage dzsparallaxer--target w-100 u-bg-overlay g-bg-black-opacity-0_4--after" style="height: 110%; background-image: url('assets/img/logo/qandabg.jpg'); transform: translate3d(0px, -246px, 0px);"></div>
+            <!-- End Parallax Image -->
 
-  </div>
-  
-  
-</section>
-        <script>
+            <div class="container text-center g-color-white g-py-200--md g-py-80">
+                <h5 class="g-color-gray-light-v2 text-center ">Active Users: <span class="g-color-gray-light-v2 g-font-weight-600" id="counter"></span></h5>
+                <h2 class="text-uppercase g-font-weight-700 g-mb-20 h2">Discussions near <span id="locationspan" class="g-color-primary g-ml-10 g-font-weight-700 h1 city"></span></h2>
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(getLocation);
-  } else {
-    alert("Je browser ondersteunt geen geolocatie.");
-  }
-  function getLocation(position) {
-    return Location(position.coords.latitude, position.coords.longitude);
-  }
-
-  var Location = function (lat, lon) {
-    this.latitude  = lat;
-    this.longitude = lon;
-    check();
-  };
-
-  function check() {
-    var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.latitude + "," + this.longitude + "&sensor=true";
-    $.ajax({
-      type: "GET",
-      url: url,
-      dataType: "json", 
-      success: function(response) {
-        LocationName(response);
-      },
-      error: function() {
-        console.log("Error");
-      }});
-    };
-
-	LocationName = function(arg){
-      var locationName = arg.results[0].address_components[2].short_name;
-      $("#locationspan").html(locationName);
-        console.log(locationName);
-   
-	};
-
-  
-</script>
-<!-- Location Info -->
-         
- 
-      
-      <!-- list discussions -->
-      
-
-
-
-                <div class="container main">
-                     
-<ul class="list-unstyled g-mt-50" id="disclist">
-
-  
-</ul>
-                    
-                </div>
-              
-  
-      
-      <!-- list disc-->
-
-  <!--   
-      <footer class="g-bg-gray-dark-v2 g-color-white-opacity-0_8 g-py-20">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 text-center text-md-left g-mb-10 g-mb-0--md">
-              <div class="d-lg-flex">
-                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © Qanda</small>
-      
-              </div>
             </div>
+        </section>
 
-     
-          </div>
+        <!-- Location Info -->
+
+
+
+        <!-- Discussions List-->
+
+        <div class="container main">
+
+            <ul class="list-unstyled g-mt-50" id="disclist">
+
+            </ul>
+
         </div>
-      </footer>
-       -->
+
+
+        <!-- End Discussions List-->
+
     </main>
 
-  <!-- JS Global Compulsory -->
+    <!-- JS Global Compulsory -->
     <script src="/assets/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
     <script src="/assets/vendor/tether.min.js"></script>
@@ -229,174 +148,131 @@
     <script src="/assets/js/custom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 
-    
-       <script>
-   
-              
-  setTimeout(function(){   (function() {
-          var element = function(id){
-              return document.getElementById(id);
-          }
-          
-          //get elements
-          var mod = element('moderator');
-            var discname = element('discname');
-         var disclist = element('disclist');
-          var status = element('status');
-            var addBtn = element('addBtn');
-        var location = element('locationspan');
 
-          
-      /*    //set default status
-          var statusDefault = status.textContent;
-          var setStatus = function(s){
-              // Set Status
-              status.textContent = s;
-              
-              if(s !== statusDefault) {
-                 var delay = setTimeout(function(){
-                     setStatus(statusDefault);
-                 }, 4000);
-                 }
-              
-          } */
-          
-          // Connect to socket.io
-          var socket = io.connect('http://127.0.0.1:3005');
-      
-      var clientCount = 0;
-        
-          //check for connection
-          if(socket !== undefined) {
-             console.log('Connected to socket...');
-              
-               socket.on('countput', function(data){  
-              
-
-              counter.textContent = data;
-                        
-                    });
-              
-        
-              //OUTPUT Handler          
-     
-    //do what you need here
-     socket.on('output', function(data){
-          // console.log(data); 
-          if(data.length){
-                   for(var x = 0;x < data.length;x++){
-                       //build out message div
-                       var discussion = document.createElement('li');
-             
-                       var mediah5 = document.createElement('div');
-                       var flexdiv = document.createElement('div');
-                       var discicon = document.createElement('i');
-                       var disclink = document.createElement('a');
-                       var mediabody = document.createElement('div');
-                       var discnamep = document.createElement('p');
-                       
-                       
-                       discussion.setAttribute('class','g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15');
-                       
-                       mediah5.setAttribute('class','media h5');
-                       
-                       flexdiv.setAttribute('class','d-flex g-mt-2 g-mr-15');
-                       
-                       discicon.setAttribute('class','fa fa-comments g-color-teal');
-                       
-                        mediabody.setAttribute('class','media-body');
-                       
-                       discnamep.setAttribute('class','g-color-gray-dark-v4 g-font-weight-700 g-mb-0');
-                       
-                       disclink.setAttribute('href', '/discussion/'+ data[x]._id +'');
-                       
-                       
-                       if(data[x].name != "")  {                 
-                  var locfilter = location.innerHTML;
-                     
-                        if(data[x].location == locfilter) {
-                       
-                       discnamep.textContent = data[x].name;
-                       
-                       mediabody.appendChild(discnamep);
-                       
-                       disclink.appendChild(mediabody);          
-                       
-                       flexdiv.appendChild(discicon);
-                               mediah5.appendChild(flexdiv);
-                       
-                       mediah5.appendChild(disclink);
-                       
-               
-                       
-                       discussion.appendChild(mediah5);
-                       
-                       disclist.appendChild(discussion);
-                       
-                       disclist.insertBefore(discussion, disclist.firstchild);
-                           }
-                           }     
-                   }
-               } 
-           });
-          
-              
-          /*    // GET Status from server
-              socket.on('status', function(data){
-                  //get disc status
-                  setStatus((typeof data === 'object')? data.message : data);
-                  
-                  // if status is clear, clear text
-                  if(data.clear) {
-                     textarea.value = '';
-                     }
-                  
-              }); */
-              
-              
-              
-       
-             }
-      
-      })();
-                        
-                        }, 400);
-        
-      </script>
-
-    <!-- JS Plugins Init. -->
-    
- 
     <script>
-      $(document).on('ready', function () {
-        // initialization of carousel
-        $.HSCore.components.HSCarousel.init('.js-carousel');
+        setTimeout(function () {
 
-        $('#we-provide').slick('setOption', 'responsive', [{
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2
-          }
-        }, {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 1
-          }
-        }], true);
+            (function () {
+                var element = function (id) {
+                    return document.getElementById(id);
+                }
 
-    
-
-        // initialization of HSScrollBar component
-        $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+                //Get DOM Elements
+                var mod = element('moderator');
+                var discname = element('discname');
+                var disclist = element('disclist');
+                var status = element('status');
+                var addBtn = element('addBtn');
+                var location = element('locationspan');
 
 
-      $(window).on('load', function () {
-        // initialization of header
-        $.HSCore.components.HSHeader.init($('#js-header'));
-        $.HSCore.helpers.HSHamburgers.init('.hamburger');
-      });
-      });
+                // Connect to socket.io
+                var socket = io.connect('http://127.0.0.1:3005');
+
+                var clientCount = 0;
+
+                //check for connection
+                if (socket !== undefined) {
+                    console.log('Connected to socket...');
+
+                    socket.on('countput', function (data) {
+
+
+                        counter.textContent = data;
+
+                    });
+
+
+                    //Disccussions OUTPUT Handler          
+
+                    socket.on('output', function (data) {
+
+                        if (data.length) {
+                            for (var x = 0; x < data.length; x++) {
+                                //build out message div
+                                var discussion = document.createElement('li');
+
+                                var mediah5 = document.createElement('div');
+                                var flexdiv = document.createElement('div');
+                                var discicon = document.createElement('i');
+                                var disclink = document.createElement('a');
+                                var mediabody = document.createElement('div');
+                                var discnamep = document.createElement('p');
+
+
+                                discussion.setAttribute('class', 'g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1 g-bg-white g-mb-15');
+
+                                mediah5.setAttribute('class', 'media h5');
+
+                                flexdiv.setAttribute('class', 'd-flex g-mt-2 g-mr-15');
+
+                                discicon.setAttribute('class', 'fa fa-comments g-color-teal');
+
+                                mediabody.setAttribute('class', 'media-body');
+
+                                discnamep.setAttribute('class', 'g-color-gray-dark-v4 g-font-weight-700 g-mb-0');
+
+                                disclink.setAttribute('href', '/discussion/' + data[x]._id + '');
+
+
+                                if (data[x].name != "") {
+                                    var locfilter = location.innerHTML;
+
+                                    if (data[x].location == locfilter) {
+
+                                        discnamep.textContent = data[x].name;
+
+                                        mediabody.appendChild(discnamep);
+                                        disclink.appendChild(mediabody);
+                                        flexdiv.appendChild(discicon);
+                                        mediah5.appendChild(flexdiv);
+                                        mediah5.appendChild(disclink);
+                                        discussion.appendChild(mediah5);
+                                        disclist.appendChild(discussion);
+                                        disclist.insertBefore(discussion, disclist.firstchild);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            })();
+        }, 400);
     </script>
 
-  </body>
+    <!-- JS Plugins Init. -->
+
+
+    <script>
+        $(document).on('ready', function () {
+            // initialization of carousel
+            $.HSCore.components.HSCarousel.init('.js-carousel');
+
+            $('#we-provide').slick('setOption', 'responsive', [{
+                breakpoint: 992
+                , settings: {
+                    slidesToShow: 2
+                }
+        }, {
+                breakpoint: 576
+                , settings: {
+                    slidesToShow: 1
+                }
+        }], true);
+
+
+            // initialization of HSScrollBar component
+            $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+
+
+            $(window).on('load', function () {
+                // initialization of header
+                $.HSCore.components.HSHeader.init($('#js-header'));
+                $.HSCore.helpers.HSHamburgers.init('.hamburger');
+            });
+        });
+    </script>
+
+</body>
+
 </html>

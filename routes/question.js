@@ -4,8 +4,11 @@ var mongojs = require('mongojs');
 var mongoose = require('mongoose');
 var Question = require('../models/Question.model.js');
 
+// Checking Questions
 router.get('/', function(req, res){
-    console.log('getting all questions');
+
+    console.log('Checking all Questions');
+
     Question.find({})
         .exec(function(err, questions){
             if(err) {
@@ -14,11 +17,6 @@ router.get('/', function(req, res){
                 res.json(questions);
             }
         });
-});
-
-router.get('/create', function (req, res, next) {
-    res.render('create');
-
 });
 
 module.exports = router;

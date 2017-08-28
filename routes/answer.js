@@ -4,8 +4,10 @@ var mongojs = require('mongojs');
 var mongoose = require('mongoose');
 var Answer = require('../models/Answer.model.js');
 
+
+// Database Checker /answer
 router.get('/', function (req, res, next) {
-    console.log('getting all answers');
+    console.log('Checking All Answers');
     Answer.find({})
         .exec(function(err, answers){
             if(err) {
@@ -15,11 +17,6 @@ router.get('/', function (req, res, next) {
             }
         });
     
-});
-
-router.get('/create', function (req, res, next) {
-    res.render('create');
-
 });
 
 module.exports = router;

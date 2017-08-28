@@ -8,28 +8,28 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 
-
+// Register User
 router.get('/register', function (req, res) {
 
     res.render('register');
 
 });
 
+//Login User
 router.get('/login', function (req, res) {
 
     res.render('login');
 
 });
 
-
-
+// Register POST
 router.post('/register', function (req, res) {
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password;
     var password2 = req.body.password2;
 
-// Validation Traverse Media
+// Validation
     req.checkBody('name', 'Name is required').notEmpty();
     req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail();
@@ -39,10 +39,13 @@ router.post('/register', function (req, res) {
     var errors = req.validationErrors();
 
     if(errors){
+
         res.render('register',{
             errors:errors
         });
+
     } else {
+        // Register User in Database
         var newUser = new User({
             name: name,
             email:email,
@@ -60,13 +63,13 @@ router.post('/register', function (req, res) {
     }
 });
 
-// Gets usernames, matches what u put in & validates password
+// GET Username, MATCH Credentials, VALIDATE password
 passport.use(new LocalStrategy(
     function(name, password, done) {
         User.getUserByUsername(name, function(err, user){
             if(err) throw err;
             if(!user){
-                return done(null, false, {message: 'Unknown User'});
+                return done(null, false, {message: 'Invalid Username'});
             }
 
             User.comparePassword(password, user.password, function(err, isMatch){
@@ -90,13 +93,14 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-
+// Login POST
 router.post('/login',
     passport.authenticate('local', {successRedirect:'/', failureRedirect:'/user/login',failureFlash: true}),
     function(req, res) {
         res.redirect('/');
     });
 
+//Logout User
 router.get('/logout', function(req, res){
     req.logout();
 
@@ -104,7 +108,6 @@ router.get('/logout', function(req, res){
 
     res.redirect('/user/login');
 });
-
 
 
 module.exports = router;

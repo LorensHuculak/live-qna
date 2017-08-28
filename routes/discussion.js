@@ -8,11 +8,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/User.model.js');
 
 
-
+// Check all Discussions
 router.get('/',  function(req, res){
-    console.log('getting all discs');
+
+    console.log('Checking all Discussions');
     Discussion.find({})
-        .exec(function(err, discussions){
+                .exec(function(err, discussions){
             if(err) {
                 res.send('error has occured')
             } else {
@@ -21,21 +22,23 @@ router.get('/',  function(req, res){
         });
 });
 
+// Detailpage Discussion
 router.get('/:id', ensureAuthenticated,  function(req, res){
+
     console.log('getting one disc');
     Discussion.findOne({
         _id: req.params.id
+
     }).exec(function(err, discussion){
         res.render('discussion', {"name": discussion.name, "username": req.user.name, "mod": discussion.mod});
-
     });
 });
 
+// Post Discussion (Unused)
 router.post('/', function(req, res){
     Discussion.create(req.body, function(err,discussion){
         if(err){
             res.send('error saving discussion');
-
         } else {
             res.send(discussion);
         }
@@ -43,8 +46,7 @@ router.post('/', function(req, res){
 });
 
 
-
-
+// Delete Discussion (Unused)
 router.delete('/:id', function(req,res){
     Discussion.findOneAndRemove({
         _id: req.params.id
@@ -57,6 +59,7 @@ router.delete('/:id', function(req,res){
     })
 })
 
+// Authenticate User & Redirect
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -65,8 +68,6 @@ function ensureAuthenticated(req, res, next){
         res.redirect('/user/login');
     }
 }
-
-
 
 
 module.exports = router;

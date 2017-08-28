@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+
     <title>Qanda</title>
 
-    <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -21,9 +22,7 @@
     <link rel="stylesheet" href="/assets/vendor/icon-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/vendor/icon-line-pro/style.css">
     <link rel="stylesheet" href="/assets/vendor/icon-hs/style.css">
-
     <link rel="stylesheet" href="/assets/vendor/hamburgers/hamburgers.min.css">
-
     <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
     <link rel="stylesheet" href="/assets/vendor/dzsparallaxer/dzsparallaxer.css">
     <link rel="stylesheet" href="/assets/vendor/dzsparallaxer/dzsscroller/scroller.css">
@@ -37,150 +36,102 @@
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="/assets/css/custom.css">
-  </head>
+</head>
 
-  <body>
+<body>
+
     <!-- Header -->
-    <header id="js-header" class="u-header  u-header--toggle-section u-header--change-appearance"
-            data-header-fix-moment="300">
-      <div class="u-header__section u-header__section--dark g-bg-primary-gradient-opacity-v1 g-transition-0_3 g-py-10"
-           data-header-fix-moment-exclude="g-py-10"
-           data-header-fix-moment-classes="g-py-0">
-        <nav class="navbar navbar-toggleable-md">
-          <div class="container">
-            <!-- Responsive Toggle Button -->
-            <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0" type="button"
-                    aria-label="Toggle navigation"
-                    aria-expanded="false"
-                    aria-controls="navBar"
-                    data-toggle="collapse"
-                    data-target="#navBar"
-            >
-              <span class="hamburger hamburger--slider">
+    <header id="js-header" class="u-header  u-header--toggle-section u-header--change-appearance" data-header-fix-moment="300">
+        <div class="u-header__section u-header__section--dark g-bg-primary-gradient-opacity-v1 g-transition-0_3 g-py-10" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="g-py-0">
+            <nav class="navbar navbar-toggleable-md">
+                <div class="container">
+                    <!-- Responsive Toggle Button -->
+                    <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+                        <span class="hamburger hamburger--slider">
                 <span class="hamburger-box">
                   <span class="hamburger-inner"></span>
-                </span>
-              </span>
-            </button>
-            <!-- End Responsive Toggle Button -->
+                        </span>
+                        </span>
+                    </button>
+                    <!-- End Responsive Toggle Button -->
 
-            <!-- Logo -->
-            <a href="./register" class="navbar-brand">
-              <img src="/assets/img/logo/qanda.png" alt="Image Description">
-            </a>
-            <!-- End Logo -->
+                    <!-- Logo -->
+                    <a href="./register" class="navbar-brand">
+                        <img src="/assets/img/logo/qanda.png" alt="Image Description">
+                    </a>
+                    <!-- End Logo -->
 
-            <!-- Navigation -->
-            <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
-              <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
-              
+                    <!-- Navigation -->
+                    <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
 
-                
-          
+                        <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
 
-                <li class="nav-item g-mx-20--lg">
-                  <a href="/user/login" class="nav-link g-px-0">Login</a>
-                </li>
+                            <li class="nav-item g-mx-20--lg">
+                                <a href="/user/login" class="nav-link g-px-0">Login</a>
+                            </li>
 
-              
-              </ul>
-            </div>
-            <!-- End Navigation -->
-          </div>
-        </nav>
-      </div>
+                        </ul>
+                    </div>
+                    <!-- End Navigation -->
+                </div>
+            </nav>
+        </div>
     </header>
     <!-- End Header -->
 
     <main>
-  
-          
-          
 
- 
-      
-      <!-- Discussion Page -->
-      
-                  <div class="container g-pt-50">
-<div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
-     {{#if success_msg}}
-            <div class="alert alert-success">{{success_msg}}</div>
-          {{/if}}
+        <!-- Discussion Page -->
 
-          {{#if error_msg}}
-            <div class="alert alert-danger">{{error_msg}}</div>
-          {{/if}}
+        <div class="container g-pt-50">
+            <div class="u-heading-v2-4--bottom g-brd-primary g-mb-40">
 
-          {{#if error}}
-            <div class="alert alert-danger">{{error}}</div>
-          {{/if}}
-  <h2 class="text-uppercase u-heading-v2__title g-mb-10">New Account</h2>
+                <!-- Flash Error Message -->
 
-</div>
+                {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}} {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}} {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
+                <h2 class="text-uppercase u-heading-v2__title g-mb-10">New Account</h2>
 
-    {{#if errors}}
-      {{#each errors}}
-        <div class="g-color-red g-mb-15">{{msg}}</div>
-      {{/each}}
-{{/if}}
-    <form method="post" class="g-mb-30">
-
-  <!-- Text Input -->
-  <div class="form-group g-mb-20">
-    <input name="name" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
-
-  </div>
-  <div class="form-group g-mb-20">
-    <input name="email" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="email" placeholder="Enter Email...">
-
-  </div>
-  <div class="form-group g-mb-20">
-    <input name="password" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Password...">
-
-  </div>
-   <div class="form-group g-mb-20">
-    <input name="password2" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Confirm Password...">
-
-  </div>
-  <!-- End Text Input -->
-  
-  
-
-
-  
-<button type="submit" class="btn u-btn-outline-teal g-mr-10 g-mt-20 rounded-0">Sign Up</button>
-
-
-
-    
-</form>
-
-
-                      
-             </div>
-
-
-              
-  
-      
-      <!-- list disc-->
-
-  <!--   
-      <footer class="g-bg-gray-dark-v2 g-color-white-opacity-0_8 g-py-20">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 text-center text-md-left g-mb-10 g-mb-0--md">
-              <div class="d-lg-flex">
-                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © Qanda</small>
-      
-              </div>
             </div>
 
-     
-          </div>
+            {{#if errors}} {{#each errors}}
+            <div class="g-color-red g-mb-15">{{msg}}</div>
+            {{/each}} {{/if}}
+
+            <form method="post" class="g-mb-30">
+
+                <!-- Text Input -->
+                <div class="form-group g-mb-20">
+                    <input name="name" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Name...">
+
+                </div>
+                <div class="form-group g-mb-20">
+                    <input name="email" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="email" placeholder="Enter Email...">
+
+                </div>
+                <div class="form-group g-mb-20">
+                    <input type="password" name="password" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Enter Password...">
+
+                </div>
+                <div class="form-group g-mb-20">
+                    <input type="password" name="password2" id="inputGroup1_1" class="form-control form-control-md rounded-0" type="text" placeholder="Confirm Password...">
+
+                </div>
+                <!-- End Text Input -->
+
+                <button type="submit" class="btn u-btn-outline-teal g-mr-10 g-mt-20 rounded-0">Sign Up</button>
+
+            </form>
+
+
+
         </div>
-      </footer>
-       -->
+
     </main>
 
     <!-- JS Global Compulsory -->
@@ -213,34 +164,34 @@
 
     <!-- JS Plugins Init. -->
     <script>
-      $(document).on('ready', function () {
-        // initialization of carousel
-        $.HSCore.components.HSCarousel.init('.js-carousel');
+        $(document).on('ready', function () {
+            // initialization of carousel
+            $.HSCore.components.HSCarousel.init('.js-carousel');
 
-        $('#we-provide').slick('setOption', 'responsive', [{
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2
-          }
+            $('#we-provide').slick('setOption', 'responsive', [{
+                breakpoint: 992
+                , settings: {
+                    slidesToShow: 2
+                }
         }, {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 1
-          }
+                breakpoint: 576
+                , settings: {
+                    slidesToShow: 1
+                }
         }], true);
 
-    
 
-        // initialization of HSScrollBar component
-        $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+            // initialization of HSScrollBar component
+            $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
 
 
-      $(window).on('load', function () {
-        // initialization of header
-        $.HSCore.components.HSHeader.init($('#js-header'));
-        $.HSCore.helpers.HSHamburgers.init('.hamburger');
-      });
-      });
+            $(window).on('load', function () {
+                // initialization of header
+                $.HSCore.components.HSHeader.init($('#js-header'));
+                $.HSCore.helpers.HSHamburgers.init('.hamburger');
+            });
+        });
     </script>
-  </body>
+</body>
+
 </html>
